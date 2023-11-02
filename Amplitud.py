@@ -167,4 +167,66 @@ def amplitud(matriz):
                         print(self.matriz[i][j], end=' ')
                     print()
                 print()
+        def encontrarAncestros(self):
+            ancestros = []
+            ancestros.append(self)
+            ancestro = self.padre
+            while ancestro != None:
+                ancestros.append(ancestro)
+                ancestro = ancestro.padre
+            ancestros.reverse()
+            return ancestros
+
+        def generarposicion(self):
+            return str(self.posicion_y) + " , " + str(self.posicion_x)
+
+        def nodosExpandidos(self):
+            nodos = 0
+            if self.expandido == True:
+                nodos += 1
+                for i in self.hijos:
+                    nodos += i.nodosExpandidos()
+            return nodos
+
+        def profundidadArbol(self):
+            profundidad = self.profundidad
+            for i in self.hijos:
+                profundidad = max(profundidad, i.profundidadArbol())
+            return profundidad
+
+        def generarMatrizString(self):
+            matrizString = ""
+            for i in range(len(self.matriz)):
+                for j in range(len(self.matriz[i])):
+                    matrizString += str(self.matriz[i][j])
+                matrizString += "\n"
+            return matrizString
+
+    raiz = Nodo(0, 0, None, positionGoku[0],
+                positionGoku[1], [], matriz, 0, 0, 0)
+
+    arrayExpansion.append(raiz)
+
+    nodoMaestro = None
+
+    while len(arrayExpansion) != 0:
+        if arrayExpansion[0].esferas == 2:
+            nodoMaestro = arrayExpansion[0]
+            nodoMaestro.solucion = True
+            nodoMaestro.expandido = True
+            # nodoMaestro.expandir(arrayExpansion)
+            break
+        else:
+            arrayExpansion[0].expandir(arrayExpansion)
+            arrayExpansion.pop(0)
+
+    if not nodoMaestro:
+        eg.msgbox(msg="No se encontró una solución con el siguiente input",
+                  title="Resultado", image="images/mallaGokuSmart.png")
+    else:
+        camino = nodoMaestro.encontrarAncestros()
+        nodosExpandidos = raiz.nodosExpandidos()
+        profundidadArbol = raiz.profundidadArbol()
+        costo = nodoMaestro.costo
+
 
