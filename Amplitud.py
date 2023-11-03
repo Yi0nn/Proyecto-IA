@@ -29,7 +29,7 @@ def amplitud(matriz):
                 positionGoku = [i, j]#posicion x y 
 
     class Nodo:
-        def __init__(self, costo, profundidad, padre, posicion_y, posicion_x, hijos, matriz, cubetas, fuego, llenadoagua): #11 argumentos
+        def __init__(self, costo, profundidad, padre, posicion_y, posicion_x, hijos, matriz, cubetas, fuego, llenadoagua, hidrante): #11 argumentos
             self.costo = costo
             self.profundidad = profundidad
             self.expandido = False
@@ -40,6 +40,7 @@ def amplitud(matriz):
             self.matriz = matriz
             self.cubetas = cubetas
             self.fuego = fuego
+            self.hidrante = hidrante
 
             self.llenadoagua = llenadoagua ## prueba
 
@@ -86,70 +87,69 @@ def amplitud(matriz):
                 cubetas = 0
                 fuego = 0
                 llenadoagua = 0
+                hidrante = 0
 
                 matrizNueva[self.posicion_y][self.posicion_x] = 0   #posicion inicial en el nuevo movimiento
 
 
                 if self.matriz[posicionAMover_y][posicionAMover_x] == 2: #PUNTO DE FUEGO 
                     #los que nunca cambia quiere decir que en toda la ejecucion llega a 0 
-                    if (self.cubetas == 2 and self.costo > 2 and llenadoagua >=0) :
-                        costo = 1
-                        fuego = fuego + 1  
-                        llenadoagua -=1
-                        self.devolver = True
-                        print('PUNTO DE FUEGOOOOOOOO')
-                            #ultimaPelea = 3
-                    if(self.cubetas == 3 and self.costo > 3 and llenadoagua ==0) :
-                        costo = 2
-                        fuego =fuego + 1
-                        llenadoagua -=1
-                        self.devolver = True
-                        print('PUNTO DE FUEGOOOOOOOO')
-                    else:
-                        print("NO TIENE CUBETA")
-                        self.devolver = True
+                    #if llenadoagua > 0:
+                        if (self.cubetas == 2 and self.costo > 2) :
+                                    costo = 1
+                                    fuego = fuego + 1  
+                                    llenadoagua -=1
+                                    print('PUNTO DE FUEGOOOOOOOO')
+                                    self.devolver = True                            
+                        elif(self.cubetas == 3 and self.costo > 3) :
+                                costo = 2
+                                fuego =fuego + 1
+                                llenadoagua -=1
+                                self.devolver = True
+                                print('PUNTO DE FUEGOOOOOOOO')
+                        else:
+                            print("NO TIENE CUBETA")
+                            self.devolver = True
+                    #else:
+                         #self.devolver = True
 
                 elif self.matriz[posicionAMover_y][posicionAMover_x] == 3:
                         print('CUBETA DE UN LITROOOOOOOOOOOOOOOO')
                         costo =  1
                         cubetas= 1
-                        llenadoagua += 0
                         self.devolver=True 
                         
                 elif self.matriz[posicionAMover_y][posicionAMover_x] == 4: ##Problema 2 coje la cubeta y no suma en cubeta # problema 3 no desaparece la cubeta
                         print('CUBETA DE DOS LITROOOOOOOOOOOOOOOOOOOOOOOOOO')
                         costo =  1 #problema 3 que esto llega a ser el final 
                         cubetas= 2
-                        llenadoagua += 0
                         self.devolver =True
 
-                elif matrizNueva[posicionAMover_y][posicionAMover_x] == 6 and cubetas >= 1:#hidrante ## problema #1 no tiene cubeta y coje awa 
+                elif matrizNueva[posicionAMover_y][posicionAMover_x] == 6 :#hidrante ## problema #1 no tiene cubeta y coje awa 
+                    hidrante = 1
                     if(self.cubetas == 1):
                         costo = 2
-                        cubetas= 2 #cambie
                         print('AWITAAAAAAAAAAAAAAAAAAAAAAAA para 1l')
-                        llenadoagua += 1
-                        self.devolver = True
+                        llenadoagua = 1
+                        
                     elif(self.cubetas == 2):
                         costo = 3
-                        cubetas = 3 #cambie 
                         print('AWITAAAAAAAAAAAAAAAAAAAAAAAA paraa 2l')
-                        llenadoagua += 2
-                        self.devolver = True
+                        llenadoagua = 2
                     else:
                         costo =1
+                        self.devolver = True
     ###PARA NOSOSTRAS DEVOLVER ES CUANDO RECOJE LA CUBETA LLENA DE AWA
 
-                # if self.llenadoagua >0:  MODIFICAR PARA QUE EL HIDRANTE QUEDE NICE esto es pa dejar la cosa fija 
-                #     matrizNueva[self.posicion_y][self.posicion_x] = 6
+                if self.hidrante ==1:
+                     matrizNueva[self.posicion_y][self.posicion_x] = 6
 
                 
                 #SE SUPONE QUE ESTA ES LA NUEVA MATRIZ CON EL MOVIMIENTO QUE SE REALIZO SE S U P O N E 
                 matrizNueva[posicionAMover_y][posicionAMover_x] = 2
                 nuevohijo = Nodo(self.costo+costo, self.profundidad+1, self, posicionAMover_y, posicionAMover_x,
-                                [], matrizNueva,self.cubetas+cubetas,self.fuego+fuego , self.llenadoagua + llenadoagua) #esto da  bn
+                                [], matrizNueva,self.cubetas+cubetas,self.fuego+fuego , self.llenadoagua + llenadoagua, hidrante) #esto da  bn
                 
-                print (llenadoagua)
                 
                 if self.padre == None:
                     arrayExpansion.append(nuevohijo)
@@ -213,7 +213,7 @@ def amplitud(matriz):
     ####IMPORTANTE 
     # nuevohijo = Nodo(self.costo+costo, self.profundidad+1, self, posicionAMover_y, posicionAMover_x,[], matrizNueva,  self.fuego+fuego ,self.cubetas+cubetas, llenadoagua)
     raiz = Nodo(0, 0, None, positionGoku[0],
-                positionGoku[1], [], matriz, 0, 0, 0)
+                positionGoku[1], [], matriz, 0, 0, 0, 0)
 
     arrayExpansion.append(raiz)
 
