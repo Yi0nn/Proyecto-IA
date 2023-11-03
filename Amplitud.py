@@ -14,7 +14,7 @@ if __name__ == '__main__':
 
 def amplitud(matriz):
 
-    colores = ['white', 'gray', 'orange', 'red', 'red', 'green', 'blue']
+    colores = ['white', 'gray', 'orange', 'red', 'pink', 'green', 'blue']
     cmap = ListedColormap(colores)
 
     nodosExpandidos = 0
@@ -29,6 +29,8 @@ def amplitud(matriz):
                 positionGoku = [i, j]#posicion x y 
 
     class Nodo:
+        # nuevohijo = Nodo(self.costo+costo, self.profundidad+1, self, posicionAMover_y, posicionAMover_x,
+                #[], matrizNueva,  self.fuego+fuego ,self.cubetas+cubetas, ultimacubeta)
         def __init__(self, costo, profundidad, padre, posicion_y, posicion_x, hijos, matriz, cubetas, fuego, ultimacubeta): #11 argumentos
             self.costo = costo
             self.profundidad = profundidad
@@ -91,54 +93,81 @@ def amplitud(matriz):
 
 
                 if self.matriz[posicionAMover_y][posicionAMover_x] == 2: #PUNTO DWE FUEGO 
+                    #los que nunca cambia quiere decir que en toda la ejecucion llega a 0 
                     if (self.cubetas == 2):
-                        costo = 1
+                        costo +=1
                         cubetas = 1 #cambie
-                        fuego +=1
-                        self.devolver = True
-                        #ultimaPelea = 3
-                    elif(self.cubetas == 3):
-                        costo = 2
+                        fuego = fuego + 1  
+                        print('PUNTO DE FUEGOOOOOOOO')
+                        print('cantidad de cubetas que existe hasta ahora',cubetas) #esto nunca cambia 
+                        print('cantidad de fuegos apagados hasta ahora', fuego) #estoo tampoco nunca cambia
+                        print('costo que va hasta ahora', costo) #esto siempre se mantiene en 1 
+                        print('ultima cubeta que no se que sea la vdd', ultimacubeta) #esto nunca cambia 
+                            #ultimaPelea = 3
+                    elif(self.cubetas == 3) :
+                        costo +=2
                         cubetas = 2 # cambie
-                        self.devolver = True
-                        fuego +=1
+                        fuego =fuego + 1
+                        print('PUNTO DE FUEGOOOOOOOO')
+                        print('cantidad de cubetas que existe hasta ahora',cubetas) #esto nunca cambia 
+                        print('cantidad de fuegos apagados hasta ahora', fuego) #estoo tampoco nunca cambia
+                        print('costo que va hasta ahora', costo) #esto siempre se mantiene en 1 
+                        print('ultima cubeta que no se que sea la vdd', ultimacubeta) #esto nunca cambia 
                     else:
-                        print("sino")
-                        self.devolver = True
-                        #semillas -= 1  // poner el que se quede en la posicion anterior o que la posicion siguiente sea un bloqueo
+                        print("NO TIENE CUBETA")
+                        print('PUNTO DE FUEGOOOOOOOO')
+                        print('cantidad de cubetas que existe hasta ahora',cubetas) #esto nunca cambia 
+                        print('cantidad de fuegos apagados hasta ahora', fuego) #estoo tampoco nunca cambia
+                        print('costo que va hasta ahora', costo) #esto siempre se mantiene en 1 
+                        print('ultima cubeta que no se que sea la vdd', ultimacubeta) #esto nunca cambia 
 
                 elif self.matriz[posicionAMover_y][posicionAMover_x] == 3:
-                        costo = 1
+                        
+                        print('CUBETA DE UN LITROOOOOOOOOOOOOOOO')
+                        print('cantidad de cubetas que existe hasta ahora',cubetas)
+                        print('cantidad de fuegos apagados hasta ahora', fuego)
+                        print('costo que va hasta ahora', costo)
+                        print('ultima cubeta que no se que sea la vdd', ultimacubeta)
+                        costo += 1
                         cubetas= 1
                         ultimacubeta = 3
+                        self.devolver=True 
                         
                 elif self.matriz[posicionAMover_y][posicionAMover_x] == 4: ##Problema 2 coje la cubeta y no suma en cubeta # problema 3 no desaparece la cubeta
-                        costo = 1 #problema 3 que esto llega a ser el final 
+                        print('CUBETA DE DOS LITROOOOOOOOOOOOOOOOOOOOOOOOOO')
+                        print('cantidad de cubetas que existe hasta ahora',cubetas)
+                        print('cantidad de fuegos apagados hasta ahora', fuego)
+                        print('costo que va hasta ahora', costo)
+                        print('ultima cubeta que no se que sea la vdd', ultimacubeta)
+                        costo += 1 #problema 3 que esto llega a ser el final 
                         cubetas= 2
                         ultimacubeta = 4
 
                 elif matrizNueva[posicionAMover_y][posicionAMover_x] == 6:#hidrante ## problema #1 no tiene cubeta y coje awa 
                     if(self.cubetas == 1):
-                        costo= 2
+                        costo+= 2
                         cubetas= 2 #cambie
-                        self.devolver = True
+                        print('AWITAAAAAAAAAAAAAAAAAAAAAAAA')
+                        print('cantidad de cubetas que existe hasta ahora',cubetas)
+                        print('cantidad de fuegos apagados hasta ahora', fuego)
+                        print('costo que va hasta ahora', costo)
+                        print('ultima cubeta que no se que sea la vdd', ultimacubeta)
                     elif(self.cubetas == 2):
-                        costo= 3
+                        costo+= 3
                         cubetas = 3 #cambie 
-                        self.devolver = True
+                        print('AWITAAAAAAAAAAAAAAAAAAAAAAAA')
+                        print('cantidad de cubetas que existe hasta ahora',cubetas)
+                        print('cantidad de fuegos apagados hasta ahora', fuego)
+                        print('costo que va hasta ahora', costo)
+                        print('ultima cubeta que no se que sea la vdd', ultimacubeta)
                     else:
-                        costo=1
+                        costo+=1
     ###PARA NOSOSTRAS DEVOLVER ES CUANDO RECOJE LA CUBETA LLENA DE AWA
-                
-                if self.ultimacubeta == 3:
-                    matrizNueva[self.posicion_y][self.posicion_x] = 3
-                elif self.ultimacubeta == 4:
-                    matrizNueva[self.posicion_y][self.posicion_x] = 4
                 
                 #SE SUPONE QUE ESTA ES LA NUEVA MATRIZ CON EL MOVIMIENTO QUE SE REALIZO SE S U P O N E 
                 matrizNueva[posicionAMover_y][posicionAMover_x] = 2
                 nuevohijo = Nodo(self.costo+costo, self.profundidad+1, self, posicionAMover_y, posicionAMover_x,
-                                [], matrizNueva,  self.fuego+fuego ,self.cubetas+cubetas, ultimacubeta)
+                                [], matrizNueva,self.fuego+fuego , self.cubetas+cubetas,  ultimacubeta)
                 
                 if self.padre == None:
                     arrayExpansion.append(nuevohijo)
@@ -197,7 +226,10 @@ def amplitud(matriz):
                     matrizString += str(self.matriz[i][j])
                 matrizString += "\n"
             return matrizString
-
+        
+    
+    ####IMPORTANTE 
+    # nuevohijo = Nodo(self.costo+costo, self.profundidad+1, self, posicionAMover_y, posicionAMover_x,[], matrizNueva,  self.fuego+fuego ,self.cubetas+cubetas, ultimacubeta)
     raiz = Nodo(0, 0, None, positionGoku[0],
                 positionGoku[1], [], matriz, 0, 0, 0)
 
