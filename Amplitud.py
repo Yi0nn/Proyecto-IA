@@ -95,12 +95,12 @@ def amplitud(matriz):
                         costo = 1
                         cubetas = 1 #cambie
                         fuego +=1
-                        #self.devolver = True
+                        self.devolver = True
                         #ultimaPelea = 3
                     elif(self.cubetas == 3):
                         costo = 2
                         cubetas = 2 # cambie
-                        #self.devolver = True
+                        self.devolver = True
                         fuego +=1
                     else:
                         print("sino")
@@ -112,20 +112,20 @@ def amplitud(matriz):
                         cubetas= 1
                         ultimacubeta = 3
                         
-                elif self.matriz[posicionAMover_y][posicionAMover_x] == 4:
-                        costo = 1
+                elif self.matriz[posicionAMover_y][posicionAMover_x] == 4: ##Problema 2 coje la cubeta y no suma en cubeta # problema 3 no desaparece la cubeta
+                        costo = 1 #problema 3 que esto llega a ser el final 
                         cubetas= 2
                         ultimacubeta = 4
 
-                elif matrizNueva[posicionAMover_y][posicionAMover_x] == 6:#hidrante
+                elif matrizNueva[posicionAMover_y][posicionAMover_x] == 6:#hidrante ## problema #1 no tiene cubeta y coje awa 
                     if(self.cubetas == 1):
                         costo= 2
                         cubetas= 2 #cambie
-                        #self.devolver = True
+                        self.devolver = True
                     elif(self.cubetas == 2):
                         costo= 3
                         cubetas = 3 #cambie 
-                        #self.devolver = True
+                        self.devolver = True
                     else:
                         costo=1
     ###PARA NOSOSTRAS DEVOLVER ES CUANDO RECOJE LA CUBETA LLENA DE AWA
@@ -250,7 +250,7 @@ def amplitud(matriz):
             textoEsferas.remove()
             textoSemillas = ax.text(0.2, 1.05, "Semillas actuales: " + str(
                 i.cubetas), fontsize=12, ha="center", va="center", transform=ax.transAxes)
-            textoEsferas = ax.text(0.8, 1.05, "Esferas actuales: " + str(i.cubetas),
+            textoEsferas = ax.text(0.8, 1.05, "Esferas actuales: " + str(i.fuego),
                                    fontsize=12, ha="center", va="center", transform=ax.transAxes)
             textoSemillas
             textoEsferas
