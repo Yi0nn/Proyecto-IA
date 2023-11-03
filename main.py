@@ -16,7 +16,7 @@ def main():
         else:
             os.system('clear')
     
-    colores = ['white', 'gray', 'orange', 'red', 'red', 'green', 'blue'] #quitar pink
+    colores = ['white', 'gray', 'orange', 'red', 'pink', 'green', 'blue'] #quitar pink
 
     cmap = ListedColormap(colores)
 
