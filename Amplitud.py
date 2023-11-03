@@ -105,7 +105,7 @@ def amplitud(matriz):
                         print('costo que va hasta ahora', costo) #esto siempre se mantiene en 1 
                         print('ultima cubeta que no se que sea la vdd', ultimacubeta) #esto nunca cambia 
                             #ultimaPelea = 3
-                    elif(self.cubetas == 3) :
+                    if(self.cubetas == 3) :
                         costo +=2
                         cubetas = 2 # cambie
                         fuego =fuego + 1
@@ -149,19 +149,21 @@ def amplitud(matriz):
                     if(self.cubetas == 1):
                         costo+= 2
                         cubetas= 2 #cambie
-                        print('AWITAAAAAAAAAAAAAAAAAAAAAAAA')
+                        print('AWITAAAAAAAAAAAAAAAAAAAAAAAA para 1l')
                         print('cantidad de cubetas que existe hasta ahora',cubetas)
                         print('cantidad de fuegos apagados hasta ahora', fuego)
                         print('costo que va hasta ahora', costo)
                         print('ultima cubeta que no se que sea la vdd', ultimacubeta)
-                    elif(self.cubetas == 2):
+                        self.devolver = True
+                    if(self.cubetas == 2):
                         costo+= 3
                         cubetas = 3 #cambie 
-                        print('AWITAAAAAAAAAAAAAAAAAAAAAAAA')
+                        print('AWITAAAAAAAAAAAAAAAAAAAAAAAA paraa 2l')
                         print('cantidad de cubetas que existe hasta ahora',cubetas)
                         print('cantidad de fuegos apagados hasta ahora', fuego)
                         print('costo que va hasta ahora', costo)
                         print('ultima cubeta que no se que sea la vdd', ultimacubeta)
+                        self.devolver = True
                     else:
                         costo+=1
     ###PARA NOSOSTRAS DEVOLVER ES CUANDO RECOJE LA CUBETA LLENA DE AWA
