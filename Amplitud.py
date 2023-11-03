@@ -14,7 +14,7 @@ if __name__ == '__main__':
 
 def amplitud(matriz):
 
-    colores = ['white', 'gray', 'orange', 'red', 'green', 'blue', 'yellow', 'pink']
+    colores = ['white', 'gray', 'orange', 'red', 'red', 'green', 'blue']
     cmap = ListedColormap(colores)
 
     nodosExpandidos = 0
@@ -29,7 +29,7 @@ def amplitud(matriz):
                 positionGoku = [i, j]#posicion x y 
 
     class Nodo:
-        def __init__(self, costo, profundidad, padre, posicion_y, posicion_x, hijos, matriz, cubetas, fuego, hidrante, cubellena1l, cubellena2l):
+        def __init__(self, costo, profundidad, padre, posicion_y, posicion_x, hijos, matriz, cubetas, fuego, ultimacubeta): #11 argumentos
             self.costo = costo
             self.profundidad = profundidad
             self.expandido = False
@@ -40,9 +40,9 @@ def amplitud(matriz):
             self.matriz = matriz
             self.cubetas = cubetas
             self.fuego = fuego
-            self.hidrante = hidrante
-            self.cubellena1l = cubellena1l
-            self.cubellena2l = cubellena2l
+
+            self.ultimacubeta = ultimacubeta ## prueba
+
             self.solucion = False
             self.devolver = False
 
@@ -85,28 +85,23 @@ def amplitud(matriz):
                 costo = 1
                 cubetas = 0
                 fuego = 0
-                hidrante = 0
-                cubellena1l= 1
-                cubellena2l= 2
+                ultimacubeta = 0
 
                 matrizNueva[self.posicion_y][self.posicion_x] = 0   #posicion inicial en el nuevo movimiento
 
 
                 if self.matriz[posicionAMover_y][posicionAMover_x] == 2: #PUNTO DWE FUEGO 
-                    if (self.cubellena1l == 1):
+                    if (self.cubetas == 2):
                         costo = 1
-                        cubellena1l = 0
-                        self.devolver = True
+                        cubetas = 1 #cambie
+                        fuego +=1
+                        #self.devolver = True
                         #ultimaPelea = 3
-                    elif(self.cubellena2l == 2):
+                    elif(self.cubetas == 3):
                         costo = 2
-                        cubellena2l = 1
-                        self.devolver = True
-                    
-                    elif(self.cubellena2l == 1):
-                        costo = 1
-                        cubellena2l = 1
-                        self.devolver = True
+                        cubetas = 2 # cambie
+                        #self.devolver = True
+                        fuego +=1
                     else:
                         print("sino")
                         self.devolver = True
@@ -115,34 +110,35 @@ def amplitud(matriz):
                 elif self.matriz[posicionAMover_y][posicionAMover_x] == 3:
                         costo = 1
                         cubetas= 1
+                        ultimacubeta = 3
                         
                 elif self.matriz[posicionAMover_y][posicionAMover_x] == 4:
                         costo = 1
                         cubetas= 2
-
+                        ultimacubeta = 4
 
                 elif matrizNueva[posicionAMover_y][posicionAMover_x] == 6:#hidrante
                     if(self.cubetas == 1):
                         costo= 2
-                        cubellena1l= 1
-                        self.devolver = True
+                        cubetas= 2 #cambie
+                        #self.devolver = True
                     elif(self.cubetas == 2):
                         costo= 3
-                        cubellena2l =2
-                        self.devolver = True
+                        cubetas = 3 #cambie 
+                        #self.devolver = True
                     else:
                         costo=1
     ###PARA NOSOSTRAS DEVOLVER ES CUANDO RECOJE LA CUBETA LLENA DE AWA
                 
-                if self.cubetas == 1:
+                if self.ultimacubeta == 3:
                     matrizNueva[self.posicion_y][self.posicion_x] = 3
-                elif self.cubetas == 2:
+                elif self.ultimacubeta == 4:
                     matrizNueva[self.posicion_y][self.posicion_x] = 4
                 
                 #SE SUPONE QUE ESTA ES LA NUEVA MATRIZ CON EL MOVIMIENTO QUE SE REALIZO SE S U P O N E 
                 matrizNueva[posicionAMover_y][posicionAMover_x] = 2
                 nuevohijo = Nodo(self.costo+costo, self.profundidad+1, self, posicionAMover_y, posicionAMover_x,
-                                [], matrizNueva, self.cubellena1l+cubellena1l,self.cubellena2l+cubellena2l, self.fuego+fuego, cubetas)
+                                [], matrizNueva,  self.fuego+fuego ,self.cubetas+cubetas, ultimacubeta)
                 
                 if self.padre == None:
                     arrayExpansion.append(nuevohijo)
@@ -210,7 +206,7 @@ def amplitud(matriz):
     nodoMaestro = None
 
     while len(arrayExpansion) != 0:
-        if arrayExpansion[0].esferas == 2:
+        if arrayExpansion[0].fuego == 5:
             nodoMaestro = arrayExpansion[0]
             nodoMaestro.solucion = True
             nodoMaestro.expandido = True
@@ -229,4 +225,40 @@ def amplitud(matriz):
         profundidadArbol = raiz.profundidadArbol()
         costo = nodoMaestro.costo
 
+        timeFinal = time.time()
+        timeComputing = timeFinal - timeInitial
+        eg.msgbox(msg="Se encontró una solución con los siguientes datos:\n\nNodos expandidos: " + str(nodosExpandidos) + "\nProfundidad del árbol: " +
+                  str(profundidadArbol) + "\nTiempo de ejecución: " + str(timeComputing)[:10] + " segundos\n\nAhora se visualizará el camino que tomaría la bombera", title="Resultado")
+        
 
+
+        fig, ax = plt.subplots()
+        im = ax.imshow(matriz, cmap=cmap, vmin=0, vmax=6)
+        plt.xticks([])
+        plt.yticks([])
+        fig = plt.gcf()
+        fig.canvas.manager.set_window_title(
+            "Camino de Goku para encontrar las esferas del dragón usando Amplitud")
+        textoSemillas = ax.text(0.2, 1.05, "Semillas actuales: " + str(0),
+                                fontsize=12, ha="center", va="center", transform=ax.transAxes)
+        textoEsferas = ax.text(0.8, 1.05, "Esferas actuales: " + str(0),
+                               fontsize=12, ha="center", va="center", transform=ax.transAxes)
+
+        plt.pause(0.5)
+        for i in camino:
+            textoSemillas.remove()
+            textoEsferas.remove()
+            textoSemillas = ax.text(0.2, 1.05, "Semillas actuales: " + str(
+                i.cubetas), fontsize=12, ha="center", va="center", transform=ax.transAxes)
+            textoEsferas = ax.text(0.8, 1.05, "Esferas actuales: " + str(i.cubetas),
+                                   fontsize=12, ha="center", va="center", transform=ax.transAxes)
+            textoSemillas
+            textoEsferas
+            matrizTemp = i.matriz
+            im.set_data(matrizTemp)
+            plt.draw()
+            plt.pause(0.3)
+            if not plt.get_fignums():
+                break
+        time.sleep(1)
+        plt.close("all")
