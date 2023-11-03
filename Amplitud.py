@@ -80,7 +80,7 @@ def amplitud(matriz):
                         # print(("Se puede mover hacia izquierda"))
                         self.crearHijo(self.posicion_y,
                                     self.posicion_x-1, arrayExpansion)
-                        
+
         def crearHijo(self, posicionAMover_y, posicionAMover_x, arrayExpansion):
                 matrizNueva = deepcopy(self.matriz)
                 costo = 1
@@ -94,22 +94,22 @@ def amplitud(matriz):
 
                 if self.matriz[posicionAMover_y][posicionAMover_x] == 2: #PUNTO DE FUEGO 
                     #los que nunca cambia quiere decir que en toda la ejecucion llega a 0 
-                    #if llenadoagua > 0:
-                        if (self.cubetas == 2 and self.costo > 2) :
-                                    costo = 1
-                                    fuego = fuego + 1  
-                                    llenadoagua -=1
-                                    print('PUNTO DE FUEGOOOOOOOO')
-                                    self.devolver = True                            
-                        elif(self.cubetas == 3 and self.costo > 3) :
-                                costo = 2
-                                fuego =fuego + 1
-                                llenadoagua -=1
-                                self.devolver = True
-                                print('PUNTO DE FUEGOOOOOOOO')
-                        else:
-                            print("NO TIENE CUBETA")
-                            self.devolver = True
+                    #if (llenadoagua > 0):
+                          if (self.cubetas == 2 and self.costo > 2 and self.llenadoagua > 0):
+                                      costo = 1
+                                      fuego = fuego + 1  
+                                      llenadoagua -=1
+                                      print('PUNTO DE FUEGOOOOOOOO')
+                                      self.devolver = True                            
+                          elif(self.cubetas == 3 and self.costo > 3 and self.llenadoagua > 0):
+                                  costo = 2
+                                  fuego =fuego + 1
+                                  llenadoagua -=1
+                                  self.devolver = True
+                                  print('PUNTO DE FUEGOOOOOOOO')
+                          else:
+                              print("NO TIENE CUBETA")
+                              self.devolver = True
                     #else:
                          #self.devolver = True
 
@@ -118,7 +118,7 @@ def amplitud(matriz):
                         costo =  1
                         cubetas= 1
                         self.devolver=True 
-                        
+
                 elif self.matriz[posicionAMover_y][posicionAMover_x] == 4: ##Problema 2 coje la cubeta y no suma en cubeta # problema 3 no desaparece la cubeta
                         print('CUBETA DE DOS LITROOOOOOOOOOOOOOOOOOOOOOOOOO')
                         costo =  1 #problema 3 que esto llega a ser el final 
@@ -127,15 +127,16 @@ def amplitud(matriz):
 
                 elif matrizNueva[posicionAMover_y][posicionAMover_x] == 6 :#hidrante ## problema #1 no tiene cubeta y coje awa 
                     hidrante = 1
-                    if(self.cubetas == 1):
+                    if(self.cubetas == 1 and self.llenadoagua == 0):
                         costo = 2
                         print('AWITAAAAAAAAAAAAAAAAAAAAAAAA para 1l')
                         llenadoagua = 1
-                        
-                    elif(self.cubetas == 2):
+
+                    elif(self.cubetas == 2 and self.llenadoagua == 0):
                         costo = 3
                         print('AWITAAAAAAAAAAAAAAAAAAAAAAAA paraa 2l')
                         llenadoagua = 2
+                    
                     else:
                         costo =1
                         self.devolver = True
@@ -144,13 +145,13 @@ def amplitud(matriz):
                 if self.hidrante ==1:
                      matrizNueva[self.posicion_y][self.posicion_x] = 6
 
-                
+
                 #SE SUPONE QUE ESTA ES LA NUEVA MATRIZ CON EL MOVIMIENTO QUE SE REALIZO SE S U P O N E 
                 matrizNueva[posicionAMover_y][posicionAMover_x] = 2
                 nuevohijo = Nodo(self.costo+costo, self.profundidad+1, self, posicionAMover_y, posicionAMover_x,
                                 [], matrizNueva,self.cubetas+cubetas,self.fuego+fuego , self.llenadoagua + llenadoagua, hidrante) #esto da  bn
-                
-                
+
+
                 if self.padre == None:
                     arrayExpansion.append(nuevohijo)
                     self.hijos.append(nuevohijo)
@@ -208,8 +209,8 @@ def amplitud(matriz):
                     matrizString += str(self.matriz[i][j])
                 matrizString += "\n"
             return matrizString
-        
-    
+
+
     ####IMPORTANTE 
     # nuevohijo = Nodo(self.costo+costo, self.profundidad+1, self, posicionAMover_y, posicionAMover_x,[], matrizNueva,  self.fuego+fuego ,self.cubetas+cubetas, llenadoagua)
     raiz = Nodo(0, 0, None, positionGoku[0],
@@ -243,7 +244,7 @@ def amplitud(matriz):
         timeComputing = timeFinal - timeInitial
         eg.msgbox(msg="Se encontró una solución con los siguientes datos:\n\nNodos expandidos: " + str(nodosExpandidos) + "\nProfundidad del árbol: " +
                   str(profundidadArbol) + "\nTiempo de ejecución: " + str(timeComputing)[:10] + " segundos\n\nAhora se visualizará el camino que tomaría la bombera", title="Resultado")
-        
+
 
 
         fig, ax = plt.subplots()
