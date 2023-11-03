@@ -98,6 +98,7 @@ def amplitud(matriz):
                         costo +=1
                         cubetas = 1 #cambie
                         fuego = fuego + 1  
+                        self.devolver = True
                         print('PUNTO DE FUEGOOOOOOOO')
                         print('cantidad de cubetas que existe hasta ahora',cubetas) #esto nunca cambia 
                         print('cantidad de fuegos apagados hasta ahora', fuego) #estoo tampoco nunca cambia
@@ -108,6 +109,7 @@ def amplitud(matriz):
                         costo +=2
                         cubetas = 2 # cambie
                         fuego =fuego + 1
+                        self.devolver = True
                         print('PUNTO DE FUEGOOOOOOOO')
                         print('cantidad de cubetas que existe hasta ahora',cubetas) #esto nunca cambia 
                         print('cantidad de fuegos apagados hasta ahora', fuego) #estoo tampoco nunca cambia
@@ -163,11 +165,15 @@ def amplitud(matriz):
                     else:
                         costo+=1
     ###PARA NOSOSTRAS DEVOLVER ES CUANDO RECOJE LA CUBETA LLENA DE AWA
+
+                # if self.ultimacubeta >0:  MODIFICAR PARA QUE EL HIDRANTE QUEDE NICE esto es pa dejar la cosa fija 
+                #     matrizNueva[self.posicion_y][self.posicion_x] = 6
+
                 
                 #SE SUPONE QUE ESTA ES LA NUEVA MATRIZ CON EL MOVIMIENTO QUE SE REALIZO SE S U P O N E 
                 matrizNueva[posicionAMover_y][posicionAMover_x] = 2
                 nuevohijo = Nodo(self.costo+costo, self.profundidad+1, self, posicionAMover_y, posicionAMover_x,
-                                [], matrizNueva,self.fuego+fuego , self.cubetas+cubetas,  ultimacubeta)
+                                [], matrizNueva,self.cubetas+cubetas,self.fuego+fuego ,   ultimacubeta)
                 
                 if self.padre == None:
                     arrayExpansion.append(nuevohijo)
@@ -238,7 +244,7 @@ def amplitud(matriz):
     nodoMaestro = None
 
     while len(arrayExpansion) != 0:
-        if arrayExpansion[0].fuego == 5:
+        if arrayExpansion[0].fuego == 2:
             nodoMaestro = arrayExpansion[0]
             nodoMaestro.solucion = True
             nodoMaestro.expandido = True
@@ -281,7 +287,7 @@ def amplitud(matriz):
             textoSemillas.remove()
             textoEsferas.remove()
             textoSemillas = ax.text(0.2, 1.05, "Semillas actuales: " + str(
-                i.cubetas), fontsize=12, ha="center", va="center", transform=ax.transAxes)
+                i.ultimacubeta), fontsize=12, ha="center", va="center", transform=ax.transAxes)
             textoEsferas = ax.text(0.8, 1.05, "Esferas actuales: " + str(i.fuego),
                                    fontsize=12, ha="center", va="center", transform=ax.transAxes)
             textoSemillas
