@@ -91,29 +91,7 @@ def amplitud(matriz):
 
                 matrizNueva[self.posicion_y][self.posicion_x] = 0   #posicion inicial en el nuevo movimiento
 
-
-                if self.matriz[posicionAMover_y][posicionAMover_x] == 2: #PUNTO DE FUEGO 
-                    #los que nunca cambia quiere decir que en toda la ejecucion llega a 0 
-                    #if (llenadoagua > 0):
-                          if (self.cubetas == 2 and self.costo > 2 and self.llenadoagua > 0):
-                                      costo = 1
-                                      fuego = fuego + 1  
-                                      llenadoagua -=1
-                                      print('PUNTO DE FUEGOOOOOOOO')
-                                      self.devolver = True                            
-                          elif(self.cubetas == 3 and self.costo > 3 and self.llenadoagua > 0):
-                                  costo = 2
-                                  fuego =fuego + 1
-                                  llenadoagua -=1
-                                  self.devolver = True
-                                  print('PUNTO DE FUEGOOOOOOOO')
-                          else:
-                              print("NO TIENE CUBETA")
-                              self.devolver = True
-                    #else:
-                         #self.devolver = True
-
-                elif self.matriz[posicionAMover_y][posicionAMover_x] == 3:
+                if self.matriz[posicionAMover_y][posicionAMover_x] == 3:
                         print('CUBETA DE UN LITROOOOOOOOOOOOOOOO')
                         costo =  1
                         cubetas= 1
@@ -125,7 +103,7 @@ def amplitud(matriz):
                         cubetas= 2
                         self.devolver =True
 
-                elif matrizNueva[posicionAMover_y][posicionAMover_x] == 6 :#hidrante ## problema #1 no tiene cubeta y coje awa 
+                elif self.matriz[posicionAMover_y][posicionAMover_x] == 6 :#hidrante ## problema #1 no tiene cubeta y coje awa 
                     hidrante = 1
                     if(self.cubetas == 1 and self.llenadoagua == 0):
                         costo = 2
@@ -140,6 +118,27 @@ def amplitud(matriz):
                     else:
                         costo =1
                         self.devolver = True
+                
+                elif matrizNueva[posicionAMover_y][posicionAMover_x] == 2: #PUNTO DE FUEGO 
+                #los que nunca cambia quiere decir que en toda la ejecucion llega a 0 
+                #if (llenadoagua > 0):
+                      if (self.cubetas == 2 and self.costo > 2 and self.llenadoagua > 0):
+                                  costo = 1
+                                  fuego = fuego + 1  
+                                  llenadoagua -=1
+                                  print('PUNTO DE FUEGOOOOOOOO')
+                                  self.devolver = True                            
+                      elif(self.cubetas == 3 and self.costo > 3 and self.llenadoagua > 0):
+                              costo = 2
+                              fuego =fuego + 1
+                              llenadoagua -=1
+                              self.devolver = True
+                              print('PUNTO DE FUEGOOOOOOOO')
+                      else:
+                          print("NO TIENE CUBETA")
+                          self.devolver = True
+                #else:
+                     #self.devolver = True
     ###PARA NOSOSTRAS DEVOLVER ES CUANDO RECOJE LA CUBETA LLENA DE AWA
 
                 if self.hidrante ==1:
@@ -147,7 +146,7 @@ def amplitud(matriz):
 
 
                 #SE SUPONE QUE ESTA ES LA NUEVA MATRIZ CON EL MOVIMIENTO QUE SE REALIZO SE S U P O N E 
-                matrizNueva[posicionAMover_y][posicionAMover_x] = 2
+                matrizNueva[posicionAMover_y][posicionAMover_x] = 5
                 nuevohijo = Nodo(self.costo+costo, self.profundidad+1, self, posicionAMover_y, posicionAMover_x,
                                 [], matrizNueva,self.cubetas+cubetas,self.fuego+fuego , self.llenadoagua + llenadoagua, hidrante) #esto da  bn
 
