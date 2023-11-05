@@ -3,12 +3,12 @@ import sys
 import easygui as eg
 from PIL import Image
 #import avara as avara
-#import a as a
+import A as a
 import matplotlib.pyplot as plt
 import Amplitud as amplitud
 from matplotlib.colors import ListedColormap
 import CostoU as costoU
-#import profundidadEvitandoCiclos as profundidad
+import ProfundidadECiclos as profundidad
 
 def main():
     def limpiar_consola():
@@ -74,6 +74,23 @@ def main():
         elif (noinformada == 1):
             print("Usted seleccionó Costo Uniforme, una ventana aparecerá cuando el algoritmo acabe, si el proceso es demorado significa que sigue expandiendo nodos, si considera que es mucho tiempo puede cortar la ejecución.\n")
             costoU.costoU(matriz)
+        elif (noinformada == 2):
+            print("Usted seleccionó Profundidad Evitando Ciclos, una ventana aparecerá cuando el algoritmo acabe, si el proceso es demorado significa que sigue expandiendo nodos, si considera que es mucho tiempo puede cortar la ejecución.\n")
+            profundidad.profundidadEvitandoCiclos(matriz)
+        else:
+            sys.exit(0)
+
+    def preguntarBusquedaInformada(matriz):
+        informada = eg.indexbox(msg='¿Qué busqueda desea realizar con el siguiente input?',
+                                title='Goku Smart',
+                                choices=['Avara', 'A*'],
+                                    image='images/mallaGokuSmart.png',
+                                )
+        if informada == 0:
+            print("Usted seleccionó Avara, una ventana aparecerá cuando el algoritmo acabe, si el proceso es demorado significa que sigue expandiendo nodos, si considera que es mucho tiempo puede cortar la ejecución.\n")
+        elif informada == 1:
+            print("Usted seleccionó A*, una ventana aparecerá cuando el algoritmo acabe, si el proceso es demorado significa que sigue expandiendo nodos, si considera que es mucho tiempo puede cortar la ejecución.\n")
+            a.a(matriz)
         else:
             sys.exit(0)
     
@@ -82,9 +99,10 @@ def main():
     tipoBusqueda = preguntarTipoBusqueda()
     if (tipoBusqueda == 0):
         preguntarBusquedaNoInformada(matriz)
+    elif (tipoBusqueda == 1):
+        preguntarBusquedaInformada(matriz)
 
-
-    repetir = eg.indexbox(
+        repetir = eg.indexbox(
         msg='¿Desea realizar otra búsqueda?', title='Goku Smart', choices=['Sí, con el mismo archivo', 'Sí, con otro archivo', 'No'])
     print(repetir)
     while repetir >= 0 and repetir <= 2:
@@ -93,11 +111,15 @@ def main():
             tipoBusqueda = preguntarTipoBusqueda()
             if (tipoBusqueda == 0):
                 preguntarBusquedaNoInformada(matriz)
+            elif (tipoBusqueda == 1):
+                preguntarBusquedaInformada(matriz)
         elif (repetir == 1):
             matriz = cargarArchivo()
             tipoBusqueda = preguntarTipoBusqueda()
             if (tipoBusqueda == 0):
                 preguntarBusquedaNoInformada(matriz)
+            elif (tipoBusqueda == 1):
+                preguntarBusquedaInformada(matriz)
         elif (repetir == 2):
             sys.exit(0)
         repetir = eg.indexbox(

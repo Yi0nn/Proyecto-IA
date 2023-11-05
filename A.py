@@ -142,19 +142,19 @@ def a(matriz):
                 #SE SUPONE QUE ESTA ES LA NUEVA MATRIZ CON EL MOVIMIENTO QUE SE REALIZO SE S U P O N E 
                 matrizNueva[posicionAMover_y][posicionAMover_x] = 5
 
-            nuevohijo = Nodo(self.costo_real + costo, valor_heuristico, self.profundidad+1, self, posicionAMover_y, posicionAMover_x,
-                             [], matrizNueva, self.cubetas+cubetas,self.fuego+fuego , self.llenadoagua + llenadoagua, hidrante)
+                nuevohijo = Nodo(self.costo_real + costo, valor_heuristico, self.profundidad+1, self, posicionAMover_y, posicionAMover_x,
+                                [], matrizNueva, self.cubetas+cubetas,self.fuego+fuego , self.llenadoagua + llenadoagua, hidrante)
 
-            if self.padre == None:
-                arrayExpansion.append(nuevohijo)
-                self.hijos.append(nuevohijo)
-            else:
-                if self.padre.devolver == True:
+                if self.padre == None:
                     arrayExpansion.append(nuevohijo)
                     self.hijos.append(nuevohijo)
-                elif nuevohijo.seDevuelve(self.padre) == False:
-                    arrayExpansion.append(nuevohijo)
-                    self.hijos.append(nuevohijo)
+                else:
+                    if self.padre.devolver == True:
+                        arrayExpansion.append(nuevohijo)
+                        self.hijos.append(nuevohijo)
+                    elif nuevohijo.seDevuelve(self.padre) == False:
+                        arrayExpansion.append(nuevohijo)
+                        self.hijos.append(nuevohijo)
 
         def seDevuelve(hijo, padre):
             if hijo.posicion_x == padre.posicion_x and hijo.posicion_y == padre.posicion_y:
