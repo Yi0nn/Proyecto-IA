@@ -124,14 +124,15 @@ def costoU(matriz):
                      costo = 2
                 elif(llenadoagua == 2):
                      costo= 3
+                else:
+                     costo= 1
 
                 #self.imprimirMatriz()
                 #SE SUPONE QUE ESTA ES LA NUEVA MATRIZ CON EL MOVIMIENTO QUE SE REALIZO SE S U P O N E 
                 matrizNueva[posicionAMover_y][posicionAMover_x] = 5
                 nuevohijo = Nodo(self.costo+costo, self.profundidad+1, self, posicionAMover_y, posicionAMover_x,
                                 [], matrizNueva,self.cubetas+cubetas,self.fuego+fuego , self.llenadoagua + llenadoagua, hidrante) #esto da  bn
-                
-
+                print (self.costo)
                 if self.padre == None:
                     arrayExpansion.append(nuevohijo)
                     self.hijos.append(nuevohijo)
