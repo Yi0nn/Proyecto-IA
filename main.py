@@ -1,6 +1,7 @@
 import os
 import sys
 import easygui as eg
+from PIL import Image
 #import avara as avara
 #import a as a
 import matplotlib.pyplot as plt
@@ -15,7 +16,7 @@ def main():
             os.system('cls')
         else:
             os.system('clear')
-    
+
     colores = ['white', 'gray', 'orange', 'red', 'pink', 'green', 'blue'] #quitar pink
 
     cmap = ListedColormap(colores)

@@ -59,13 +59,20 @@ def amplitud(matriz):
                         # print(("Se puede mover hacia arriba"))
                         self.crearHijo(self.posicion_y-1,
                                     self.posicion_x, arrayExpansion)
-
+                        
                 if self.posicion_y < len(self.matriz) - 1:
                     abajo = self.matriz[self.posicion_y+1][self.posicion_x]
                     if abajo != 1:
                         # print(("Se puede mover hacia abajo"))
                         self.crearHijo(self.posicion_y+1,
                                     self.posicion_x, arrayExpansion)
+                        
+                if self.posicion_x > 0:
+                    izquierda = self.matriz[self.posicion_y][self.posicion_x-1]
+                    if izquierda != 1:
+                        # print(("Se puede mover hacia izquierda"))
+                        self.crearHijo(self.posicion_y,
+                                    self.posicion_x-1, arrayExpansion)
 
                 if self.posicion_x < len(self.matriz[self.posicion_y]) - 1:
                     derecha = self.matriz[self.posicion_y][self.posicion_x+1]
@@ -73,13 +80,8 @@ def amplitud(matriz):
                         # print(("Se puede mover hacia derecha"))
                         self.crearHijo(self.posicion_y,
                                     self.posicion_x+1, arrayExpansion)
-
-                if self.posicion_x > 0:
-                    izquierda = self.matriz[self.posicion_y][self.posicion_x-1]
-                    if izquierda != 1:
-                        # print(("Se puede mover hacia izquierda"))
-                        self.crearHijo(self.posicion_y,
-                                    self.posicion_x-1, arrayExpansion)
+                        
+            
 
         def crearHijo(self, posicionAMover_y, posicionAMover_x, arrayExpansion):
                 matrizNueva = deepcopy(self.matriz)
@@ -92,15 +94,11 @@ def amplitud(matriz):
                 matrizNueva[self.posicion_y][self.posicion_x] = 0   #posicion inicial en el nuevo movimiento
 
                 if self.matriz[posicionAMover_y][posicionAMover_x] == 3:
-                        print('CUBETA DE UN LITROOOOOOOOOOOOOOOO')
-                        costo =  1
                         cubetas= 1
                         llenadoagua=0
                         self.devolver=True 
 
                 elif self.matriz[posicionAMover_y][posicionAMover_x] == 4: ##Problema 2 coje la cubeta y no suma en cubeta # problema 3 no desaparece la cubeta
-                        print('CUBETA DE DOS LITROOOOOOOOOOOOOOOOOOOOOOOOOO')
-                        costo =  1 #problema 3 que esto llega a ser el final 
                         cubetas= 2
                         llenadoagua=0
                         self.devolver =True
@@ -109,50 +107,43 @@ def amplitud(matriz):
                     hidrante = 1
                     if(self.cubetas == 1 and self.llenadoagua == 0):
                         costo = 2
-                        print('AWITAAAAAAAAAAAAAAAAAAAAAAAA para 1l')
                         llenadoagua = 1
+                        self.devolver= True
 
                     elif(self.cubetas == 2 and self.llenadoagua == 0):
                         costo = 3
-                        print('AWITAAAAAAAAAAAAAAAAAAAAAAAA paraa 2l')
                         llenadoagua = 2
-                    
-                    else:
-                        costo =1
-                        self.devolver = True
+                        self.devolver= True
                 
                 elif matrizNueva[posicionAMover_y][posicionAMover_x] == 2: #PUNTO DE FUEGO 
                 #los que nunca cambia quiere decir que en toda la ejecucion llega a 0 
-                #if (llenadoagua > 0):
-                      if (self.cubetas == 1 and self.costo > 2 and self.llenadoagua > 0):
+                      if (self.cubetas == 1 and self.llenadoagua > 0):
                                   costo = 1
                                   fuego = fuego + 1  
                                   llenadoagua -=1
-                                  print('PUNTO DE FUEGOOOOOOOO')
                                   self.devolver = True
-                                  cubetas = 0
-                      elif(self.cubetas == 2 and self.costo > 3 and self.llenadoagua > 0):
-                              costo = 2
-                              fuego =fuego + 1
-                              llenadoagua -=1
-                              self.devolver = True
-                              print('PUNTO DE FUEGOOOOOOOO')
-                      else:
-                          print("NO TIENE CUBETA")
-                          self.devolver = True
-                #else:
-                     #self.devolver = True
-    ###PARA NOSOSTRAS DEVOLVER ES CUANDO RECOJE LA CUBETA LLENA DE AWA
+
+                      elif(self.cubetas == 2 and self.llenadoagua > 0):
+                                if self.llenadoagua == 2:
+                                    costo = 2
+                                    fuego =fuego + 1
+                                    llenadoagua -=1
+                                    self.devolver = True
+
+                                elif self.llenadoagua == 1:
+                                    costo = 1
+                                    fuego =fuego + 1
+                                    llenadoagua -=1
+                                    self.devolver = True
 
                 if self.hidrante ==1:
                      matrizNueva[self.posicion_y][self.posicion_x] = 6
 
-
+                #self.imprimirMatriz()
                 #SE SUPONE QUE ESTA ES LA NUEVA MATRIZ CON EL MOVIMIENTO QUE SE REALIZO SE S U P O N E 
                 matrizNueva[posicionAMover_y][posicionAMover_x] = 5
                 nuevohijo = Nodo(self.costo+costo, self.profundidad+1, self, posicionAMover_y, posicionAMover_x,
                                 [], matrizNueva,self.cubetas+cubetas,self.fuego+fuego , self.llenadoagua + llenadoagua, hidrante) #esto da  bn
-
 
                 if self.padre == None:
                     arrayExpansion.append(nuevohijo)
