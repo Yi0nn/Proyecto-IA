@@ -95,12 +95,14 @@ def amplitud(matriz):
                         print('CUBETA DE UN LITROOOOOOOOOOOOOOOO')
                         costo =  1
                         cubetas= 1
+                        llenadoagua=0
                         self.devolver=True 
 
                 elif self.matriz[posicionAMover_y][posicionAMover_x] == 4: ##Problema 2 coje la cubeta y no suma en cubeta # problema 3 no desaparece la cubeta
                         print('CUBETA DE DOS LITROOOOOOOOOOOOOOOOOOOOOOOOOO')
                         costo =  1 #problema 3 que esto llega a ser el final 
                         cubetas= 2
+                        llenadoagua=0
                         self.devolver =True
 
                 elif self.matriz[posicionAMover_y][posicionAMover_x] == 6 :#hidrante ## problema #1 no tiene cubeta y coje awa 
@@ -122,13 +124,14 @@ def amplitud(matriz):
                 elif matrizNueva[posicionAMover_y][posicionAMover_x] == 2: #PUNTO DE FUEGO 
                 #los que nunca cambia quiere decir que en toda la ejecucion llega a 0 
                 #if (llenadoagua > 0):
-                      if (self.cubetas == 2 and self.costo > 2 and self.llenadoagua > 0):
+                      if (self.cubetas == 1 and self.costo > 2 and self.llenadoagua > 0):
                                   costo = 1
                                   fuego = fuego + 1  
                                   llenadoagua -=1
                                   print('PUNTO DE FUEGOOOOOOOO')
-                                  self.devolver = True                            
-                      elif(self.cubetas == 3 and self.costo > 3 and self.llenadoagua > 0):
+                                  self.devolver = True
+                                  cubetas = 0
+                      elif(self.cubetas == 2 and self.costo > 3 and self.llenadoagua > 0):
                               costo = 2
                               fuego =fuego + 1
                               llenadoagua -=1
