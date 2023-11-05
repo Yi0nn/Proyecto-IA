@@ -229,7 +229,6 @@ def ProfundidadECiclos(matriz):
         camino = nodoMaestro.encontrarAncestros()
         nodosExpandidos = raiz.nodosExpandidos()
         profundidadArbol = raiz.profundidadArbol()
-        costo = nodoMaestro.costo
 
         # Se imprime el camino con valores de profundidad y costo
         # for i in camino:
