@@ -199,7 +199,7 @@ def costoU(matriz):
     nodoMaestro = None
 
     while len(arrayExpansion) != 0:
-        arrayExpansion.sort(key=lambda x: x.costo)
+        arrayExpansion.sort(key=lambda x: x.costo)## PARA COSTO U
         if arrayExpansion[0].fuego == 2:
             nodoMaestro = arrayExpansion[0]
             nodoMaestro.solucion = True
