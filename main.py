@@ -84,5 +84,25 @@ def main():
         preguntarBusquedaNoInformada(matriz)
 
 
+    repetir = eg.indexbox(
+        msg='¿Desea realizar otra búsqueda?', title='Goku Smart', choices=['Sí, con el mismo archivo', 'Sí, con otro archivo', 'No'])
+    print(repetir)
+    while repetir >= 0 and repetir <= 2:
+        limpiar_consola()
+        if (repetir == 0):
+            tipoBusqueda = preguntarTipoBusqueda()
+            if (tipoBusqueda == 0):
+                preguntarBusquedaNoInformada(matriz)
+        elif (repetir == 1):
+            matriz = cargarArchivo()
+            tipoBusqueda = preguntarTipoBusqueda()
+            if (tipoBusqueda == 0):
+                preguntarBusquedaNoInformada(matriz)
+        elif (repetir == 2):
+            sys.exit(0)
+        repetir = eg.indexbox(
+            msg='¿Desea realizar otra búsqueda?', title='Goku Smart', choices=['Sí, con el mismo archivo', 'Sí, con otro archivo', 'No'])
+
+
 if __name__ == '__main__':
     main()
