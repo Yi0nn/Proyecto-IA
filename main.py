@@ -7,7 +7,7 @@ from PIL import Image
 import matplotlib.pyplot as plt
 import Amplitud as amplitud
 from matplotlib.colors import ListedColormap
-#import costoUniforme as costoUniforme
+import CostoU as costoU
 #import profundidadEvitandoCiclos as profundidad
 
 def main():
@@ -71,6 +71,9 @@ def main():
         if (noinformada == 0):
             print("Usted seleccionó Amplitud, una ventana aparecerá cuando el algoritmo acabe, si el proceso es demorado significa que sigue expandiendo nodos, si considera que es mucho tiempo puede cortar la ejecución.\n")
             amplitud.amplitud(matriz)
+        elif (noinformada == 1):
+            print("Usted seleccionó Costo Uniforme, una ventana aparecerá cuando el algoritmo acabe, si el proceso es demorado significa que sigue expandiendo nodos, si considera que es mucho tiempo puede cortar la ejecución.\n")
+            costoU.costoU(matriz)
         else:
             sys.exit(0)
     
