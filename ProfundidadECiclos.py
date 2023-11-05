@@ -43,7 +43,7 @@ def ProfundidadECiclos(matriz):
             self.hidrante = hidrante
             self.llenadoagua = llenadoagua ## prueba
             self.solucion = False
-            self.devolver = False
+            self.permitirCiclo = False
 
         def expandir(self, arrayExpansion):
             self.expandido = True
@@ -82,40 +82,33 @@ def ProfundidadECiclos(matriz):
                 if self.matriz[posicionAMover_y][posicionAMover_x] == 3:
                         cubetas= 1
                         llenadoagua=0
-                        self.devolver=True 
 
                 elif self.matriz[posicionAMover_y][posicionAMover_x] == 4: ##Problema 2 coje la cubeta y no suma en cubeta # problema 3 no desaparece la cubeta
                         cubetas= 2
                         llenadoagua=0
-                        self.devolver =True
 
                 elif self.matriz[posicionAMover_y][posicionAMover_x] == 6 :#hidrante ## problema #1 no tiene cubeta y coje awa 
                     hidrante = 1
                     if(self.cubetas == 1 and self.llenadoagua == 0):
                         llenadoagua = 1
-                        self.devolver= True
 
                     elif(self.cubetas == 2 and self.llenadoagua == 0):
                         llenadoagua = 2
-                        self.devolver= True
                 
                 elif matrizNueva[posicionAMover_y][posicionAMover_x] == 2: #PUNTO DE FUEGO 
                 #los que nunca cambia quiere decir que en toda la ejecucion llega a 0 
                       if (self.cubetas == 1 and self.llenadoagua > 0):
                                   fuego = fuego + 1  
                                   llenadoagua -=1
-                                  self.devolver = True
 
                       elif(self.cubetas == 2 and self.llenadoagua > 0):
                                 if self.llenadoagua == 2:
                                     fuego =fuego + 1
                                     llenadoagua -=1
-                                    self.devolver = True
 
                                 elif self.llenadoagua == 1:
                                     fuego =fuego + 1
                                     llenadoagua -=1
-                                    self.devolver = True
 
                 if self.hidrante ==1:
                      matrizNueva[self.posicion_y][self.posicion_x] = 6
@@ -132,23 +125,42 @@ def ProfundidadECiclos(matriz):
                 matrizNueva[posicionAMover_y][posicionAMover_x] = 5
                 nuevohijo = Nodo(self.costo+costo, self.profundidad+1, self, posicionAMover_y, posicionAMover_x,
                                 [], matrizNueva,self.cubetas+cubetas,self.fuego+fuego , self.llenadoagua + llenadoagua, hidrante) #esto da  bn
-                print (self.costo)
+                
+                print(self.costo)
+
+                if nuevohijo.mallaIgualAntecesor(self) == False:
+                    nuevohijo.permitirCiclo = True
+
                 if self.padre == None:
                     arrayExpansion.append(nuevohijo)
                     self.hijos.append(nuevohijo)
                 else:
-                    if self.padre.devolver == True:
+                    if self.permitirCiclo == True:
                         arrayExpansion.append(nuevohijo)
                         self.hijos.append(nuevohijo)
-                    elif nuevohijo.seDevuelve(self.padre) == False:
+                    elif nuevohijo.entraCiclo(self.padre) == False:
                         arrayExpansion.append(nuevohijo)
                         self.hijos.append(nuevohijo)
+            
+        def mallaIgualAntecesor(hijo, padre):
+            ancestros = padre.encontrarAncestros()
+            if hijo.matriz == padre.matriz:
+                return True
+            for ancestro in ancestros:
+                if hijo.matriz == ancestro.matriz:
+                    return True
+            return False
 
-        def seDevuelve(hijo, padre):
+        def entraCiclo(hijo, padre):
+            ancestros = padre.encontrarAncestros()
             if hijo.posicion_x == padre.posicion_x and hijo.posicion_y == padre.posicion_y:
                 return True
-            else:
-                return False
+            for ancestro in ancestros:
+                if hijo.posicion_x == ancestro.posicion_x and hijo.posicion_y == ancestro.posicion_y:
+                    return True
+            return False
+
+        
 
         def imprimirMatriz(self):
             for i in range(len(self.matriz)):

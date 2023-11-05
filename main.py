@@ -76,7 +76,7 @@ def main():
             costoU.costoU(matriz)
         elif (noinformada == 2):
             print("Usted seleccionó Profundidad Evitando Ciclos, una ventana aparecerá cuando el algoritmo acabe, si el proceso es demorado significa que sigue expandiendo nodos, si considera que es mucho tiempo puede cortar la ejecución.\n")
-            profundidad.profundidadEvitandoCiclos(matriz)
+            profundidad.ProfundidadECiclos(matriz)
         else:
             sys.exit(0)
 
