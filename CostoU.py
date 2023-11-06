@@ -26,7 +26,7 @@ def costoU(matriz):
     for i in range(len(matriz)):#para recorrer las lineas de la matriz
         for j in range(len(matriz[i])):# para recorrer espacios de la matriz 
             if matriz[i][j] == 5: # posicion inicial
-                positionGoku = [i, j]#posicion x y 
+                positionBombera = [i, j]#posicion x y 
 
     class Nodo:
         def __init__(self, costo, profundidad, padre, posicion_y, posicion_x, hijos, matriz, cubetas, fuego, llenadoagua, hidrante): #11 argumentos
@@ -188,8 +188,8 @@ def costoU(matriz):
                 matrizString += "\n"
             return matrizString
 
-    raiz = Nodo(0, 0, None, positionGoku[0],
-                positionGoku[1], [], matriz, 0, 0, 0, 0)
+    raiz = Nodo(0, 0, None, positionBombera[0],
+                positionBombera[1], [], matriz, 0, 0, 0, 0)
 
     arrayExpansion.append(raiz)
 
@@ -237,7 +237,7 @@ def costoU(matriz):
         timeFinal = time.time()
         timeComputing = timeFinal - timeInitial
         eg.msgbox(msg="Se encontró una solución con los siguientes datos:\n\nNodos expandidos: " + str(nodosExpandidos) + "\nProfundidad del árbol: " +
-                  str(profundidadArbol) + "\nCosto de la solución: " + str(costo) + "\nTiempo de ejecución: " + str(timeComputing)[:10] + " segundos\n\nAhora se visualizará el camino que tomaría Goku", title="Resultado")
+                  str(profundidadArbol) + "\nCosto de la solución: " + str(costo) + "\nTiempo de ejecución: " + str(timeComputing)[:10] + " segundos\n\nAhora se visualizará el camino que tomaría la Bombera", title="Resultado")
 
         # Visualización de camino
         fig, ax = plt.subplots()
@@ -246,22 +246,22 @@ def costoU(matriz):
         plt.yticks([])
         fig = plt.gcf()
         fig.canvas.manager.set_window_title(
-            "Camino de Goku para encontrar las esferas del dragón usando Costo Uniforme")
-        textoSemillas = ax.text(0.2, 1.05, "Semillas actuales: " + str(0),
+            "Camino de la Bombera para apagar el fuego usando Costo Uniforme")
+        textoCubeta = ax.text(0.2, 1.05, "Cubeta: " + str(0),
                                 fontsize=12, ha="center", va="center", transform=ax.transAxes)
-        textoEsferas = ax.text(0.8, 1.05, "Esferas actuales: " + str(0),
+        textoFuego = ax.text(0.8, 1.05, "Fuego: " + str(0),
                                fontsize=12, ha="center", va="center", transform=ax.transAxes)
 
         plt.pause(0.5)
         for i in camino:
-            textoSemillas.remove()
-            textoEsferas.remove()
-            textoSemillas = ax.text(0.2, 1.05, "Costos: " + str(
-                i.costo), fontsize=12, ha="center", va="center", transform=ax.transAxes)
-            textoEsferas = ax.text(0.8, 1.05, "LLenado: " + str(i.llenadoagua),
+            textoCubeta.remove()
+            textoFuego.remove()
+            textoCubeta = ax.text(0.2, 1.05, "Cubeta: " + str(
+                i.cubetas), fontsize=12, ha="center", va="center", transform=ax.transAxes)
+            textoFuego = ax.text(0.8, 1.05, "Fuego: " + str(i.fuego),
                                    fontsize=12, ha="center", va="center", transform=ax.transAxes)
-            textoSemillas
-            textoEsferas
+            textoCubeta
+            textoFuego
             matrizTemp = i.matriz
             im.set_data(matrizTemp)
             plt.draw()
