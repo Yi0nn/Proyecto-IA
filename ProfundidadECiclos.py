@@ -130,10 +130,11 @@ def ProfundidadECiclos(matriz):
                 elif(self.llenadoagua == 2):
                      costo +=2
 
+
                 matrizNueva[posicionAMover_y][posicionAMover_x] = 2
                 nuevohijo = Nodo(self.costo+costo, self.profundidad+1, self, posicionAMover_y, posicionAMover_x,
                                 [], matrizNueva,self.cubetas+cubetas,self.fuego+fuego , self.llenadoagua + llenadoagua, hidrante)
-
+                
                 if nuevohijo.mallaIgualAntecesor(self) == False:
                     nuevohijo.permitirCiclo = True
 
@@ -236,25 +237,6 @@ def ProfundidadECiclos(matriz):
         nodosExpandidos = raiz.nodosExpandidos()
         profundidadArbol = raiz.profundidadArbol()
 
-        # Se imprime el camino con valores de profundidad y costo
-        # for i in camino:
-        #     i.imprimirMatriz()
-        #     print("profundidad: ", i.profundidad, "valor heuristico: ", i.valor_heuristico)
-        #     print()
-
-        # Generación de grafos
-        # def generar_grafo_1(nodo, grafo):
-        #     temp = "Matriz:\n"+nodo.generarMatrizString()+"\nCon valor: " + \
-        #         str(nodo.costo) + "\nExpandido: "+str(nodo.expandido)
-        #     grafo.node(str(id(nodo)), label=temp)
-        #     for hijo in nodo.hijos:
-        #         grafo.edge(str(id(nodo)), str(id(hijo)))
-        #         generar_grafo_1(hijo, grafo)
-        # grafo1 = Digraph()
-        # generar_grafo_1(raiz, grafo1)
-        # grafo1.render('grafo', view=True)
-
-        # Impresión de resultados
         timeFinal = time.time()
         timeComputing = timeFinal - timeInitial
         eg.msgbox(msg="Se encontró una solución con los siguientes datos:\n\nNodos expandidos: " + str(nodosExpandidos) + "\nProfundidad del árbol: " +
