@@ -123,14 +123,10 @@ def costoU(matriz):
                 if self.hidrante ==1:
                      matrizNueva[self.posicion_y][self.posicion_x] = 6
 
-                if(llenadoagua== 1):
-                     print( " +  1", costo)
-                     costo += 1
-                elif(llenadoagua == 2):
-                     print( " + 2",costo)
-                     costo += 2
-                else:
-                     costo = 1
+                if(self.llenadoagua == 1):
+                     costo +=1
+                elif(self.llenadoagua == 2):
+                     costo +=2
 
                 #self.imprimirMatriz()
                 #SE SUPONE QUE ESTA ES LA NUEVA MATRIZ CON EL MOVIMIENTO QUE SE REALIZO SE S U P O N E 
