@@ -93,31 +93,26 @@ def costoU(matriz):
                     hidrante = 1
                     if(self.cubetas == 1 and self.llenadoagua == 0):
                         llenadoagua = 1
-                        costo = 2 
 
                     elif(self.cubetas == 2 and self.llenadoagua == 0):
                         llenadoagua = 2
-                        costo =3
                 
                 elif matrizNueva[posicionAMover_y][posicionAMover_x] == 2: #PUNTO DE FUEGO 
                 #los que nunca cambia quiere decir que en toda la ejecucion llega a 0 
                       if (self.cubetas == 1 and self.llenadoagua > 0):
                                   fuego = fuego + 1  
                                   llenadoagua -=1
-                                  costo = 1
                                   self.devolver= True
 
                       elif(self.cubetas == 2 and self.llenadoagua > 0):
                                 if self.llenadoagua == 2:
                                     fuego =fuego + 1
                                     llenadoagua -=1
-                                    costo = 2
                                     self.devolver= True
                                 
                                 elif self.llenadoagua == 1:
                                     fuego =fuego + 1
                                     llenadoagua -=1
-                                    costo =1
                                     self.devolver= True
 
                 if self.hidrante ==1:
@@ -270,7 +265,7 @@ def costoU(matriz):
             matrizTemp = i.matriz
             im.set_data(matrizTemp)
             plt.draw()
-            plt.pause(0.3)
+            plt.pause(0.5)
             if not plt.get_fignums():
                 break
         time.sleep(1)
