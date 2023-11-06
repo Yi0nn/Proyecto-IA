@@ -123,7 +123,7 @@ def main():
         elif (repetir == 2):
             sys.exit(0)
         repetir = eg.indexbox(
-            msg='¿Desea realizar otra búsqueda?', title='BOMBERAS Y FUEGOS', choices=['Sí, con el mismo archivo', 'Sí, con otro archivo', 'No'])
+            msg='\n\n             ¿QUIERES VOLVER A PONER A LA BOMBERITA EN UNA AVENTURA?', title='PROYECTO #1 IA', choices=['SI\n CON EL MISMO LABERITO', 'SI\n CON OTRO LABERITO', 'NO\n QUIERO'])
 
 
 if __name__ == '__main__':
