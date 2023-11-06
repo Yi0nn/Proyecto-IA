@@ -26,7 +26,7 @@ def a(matriz):
 
     for i in range(len(matriz)):
         for j in range(len(matriz[i])):
-            if matriz[i][j] == 2:
+            if matriz[i][j] == 5:
                 positionGoku = [i, j]
 
     class Nodo:
@@ -105,39 +105,36 @@ def a(matriz):
                 elif self.matriz[posicionAMover_y][posicionAMover_x] == 6 :#hidrante ## problema #1 no tiene cubeta y coje awa 
                     hidrante = 1
                     if(self.cubetas == 1 and self.llenadoagua == 0):
-                        costo = 2
                         llenadoagua = 1
-                        self.devolver= True
-
+                      
                     elif(self.cubetas == 2 and self.llenadoagua == 0):
-                        costo = 3
                         llenadoagua = 2
-                        self.devolver= True
 
                 elif matrizNueva[posicionAMover_y][posicionAMover_x] == 2: #PUNTO DE FUEGO 
                 #los que nunca cambia quiere decir que en toda la ejecucion llega a 0 
                       if (self.cubetas == 1 and self.llenadoagua > 0):
-                                  costo = 1
                                   fuego = fuego + 1  
                                   llenadoagua -=1
                                   self.devolver = True
 
                       elif(self.cubetas == 2 and self.llenadoagua > 0):
                                 if self.llenadoagua == 2:
-                                    costo = 2
                                     fuego =fuego + 1
                                     llenadoagua -=1
                                     self.devolver = True
 
                                 elif self.llenadoagua == 1:
-                                    costo = 1
                                     fuego =fuego + 1
                                     llenadoagua -=1
                                     self.devolver = True
 
                 if self.hidrante ==1:
                      matrizNueva[self.posicion_y][self.posicion_x] = 6
-                  
+                if(self.llenadoagua == 1):
+                      costo +=1
+                elif(self.llenadoagua == 2):
+                      costo +=2
+
                 valor_heuristico = heuristica(
                   matrizNueva, posicionAMover_y, posicionAMover_x)
                 #self.imprimirMatriz()
@@ -292,18 +289,18 @@ def a(matriz):
         fig = plt.gcf()
         fig.canvas.manager.set_window_title(
             "Camino de Goku para encontrar las fuego del dragón usando A*")
-        textoSemillas = ax.text(0.2, 1.05, "Semillas actuales: " + str(0),
+        textoSemillas = ax.text(0.2, 1.05, "Cubetas: " + str(0),
                                 fontsize=12, ha="center", va="center", transform=ax.transAxes)
-        textofuego = ax.text(0.8, 1.05, "fuego actuales: " + str(0),
+        textofuego = ax.text(0.8, 1.05, "Llenado: " + str(0),
                                fontsize=12, ha="center", va="center", transform=ax.transAxes)
 
         plt.pause(0.5)
         for i in camino:
             textoSemillas.remove()
             textofuego.remove()
-            textoSemillas = ax.text(0.2, 1.05, "Semillas actuales: " + str(
-                i.semillas), fontsize=12, ha="center", va="center", transform=ax.transAxes)
-            textofuego = ax.text(0.8, 1.05, "fuego actuales: " + str(i.fuego),
+            textoSemillas = ax.text(0.2, 1.05, "Cubetas: " + str(
+                i.cubetas), fontsize=12, ha="center", va="center", transform=ax.transAxes)
+            textofuego = ax.text(0.8, 1.05, "Llenado: " + str(i.llenadoagua),
                                    fontsize=12, ha="center", va="center", transform=ax.transAxes)
             textoSemillas
             textofuego
