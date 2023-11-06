@@ -9,6 +9,8 @@ import Amplitud as amplitud
 from matplotlib.colors import ListedColormap
 import CostoU as costoU
 import ProfundidadECiclos as profundidad
+import tkinter as tk
+import tkinter.ttk as ttk
 
 def main():
     def limpiar_consola():
@@ -17,12 +19,12 @@ def main():
         else:
             os.system('clear')
 
-    colores = ['white', 'gray', 'orange', 'red', 'pink', 'green', 'blue'] #quitar pink
+    colores = ['#FFF6FF', '#5C0057', '#FF00B5', '#B07DFF', '#B07DFF', '#FFAAD6', '#00D1FF'] #quitar pink
 
     cmap = ListedColormap(colores)
 
     tipoBusqueda = 0
-
+    
     def cargarArchivo():
         archivo = eg.fileopenbox(msg='Seleccione el archivo de entrada',
                                  title='BOMBERAS Y FUEGOS',
@@ -30,6 +32,7 @@ def main():
                                  filetypes=["*.txt"],
                                  multiple=False,
                                  )
+        
         if archivo is None:
             sys.exit(0)
         archivoInput = open(archivo, 'r')
@@ -51,9 +54,10 @@ def main():
         return matriz
 
     def preguntarTipoBusqueda():
-        tipoBusqueda = eg.indexbox(msg='¿Qué tipo de búsqueda desea realizar?',
-                                   title='BOMBERAS Y FUEGOS',
-                                   choices=['Busqueda no Informada', 'Busqueda informada'],
+        tipoBusqueda = eg.indexbox(
+                                    msg='                                BOMBERAS Y FUEGOS\n\n                     SELECCIONE EL TIPO DE BUSQUEDA QUE DESEA',
+                                   title='PROYECTO #1 IA',
+                                   choices=['\nBUSQUEDA \n NO INFORMADA\n', '\nBUSQUEDA\n  INFORMADA\n'],
                                    image='Images/mallabomberita.png'
                                    )
 
@@ -62,35 +66,30 @@ def main():
         return tipoBusqueda
     
     def preguntarBusquedaNoInformada(matriz):
-        noinformada = eg.indexbox(msg='¿Qué tipo de búsqueda desea realizar?',
-                                  title='BOMBERAS Y FUEGOS',
-                                  choices=['Amplitud', 'Costo Uniforme',
-                                           'Profundidad Evitando Ciclos'],
+        noinformada = eg.indexbox(msg='                                BOMBERAS Y FUEGOS\n\n                        QUE METODO DESEA PARA LA BUSQUEDA',
+                                  title='PROYECTO #1 IA',
+                                  choices=['\nAMPLITUD\n', '\nCOSTO UNIFORME\n',
+                                           '\nPROFUNDIDAD EVITANDO CICLOS\n'],
                                   image='Images/mallabomberita.png',
                                   )
         if (noinformada == 0):
-            print("Usted seleccionó Amplitud, una ventana aparecerá cuando el algoritmo acabe, si el proceso es demorado significa que sigue expandiendo nodos, si considera que es mucho tiempo puede cortar la ejecución.\n")
             amplitud.amplitud(matriz)
         elif (noinformada == 1):
-            print("Usted seleccionó Costo Uniforme, una ventana aparecerá cuando el algoritmo acabe, si el proceso es demorado significa que sigue expandiendo nodos, si considera que es mucho tiempo puede cortar la ejecución.\n")
             costoU.costoU(matriz)
         elif (noinformada == 2):
-            print("Usted seleccionó Profundidad Evitando Ciclos, una ventana aparecerá cuando el algoritmo acabe, si el proceso es demorado significa que sigue expandiendo nodos, si considera que es mucho tiempo puede cortar la ejecución.\n")
             profundidad.ProfundidadECiclos(matriz)
         else:
             sys.exit(0)
 
     def preguntarBusquedaInformada(matriz):
-        informada = eg.indexbox(msg='¿Qué busqueda desea realizar con el siguiente input?',
-                                title='BOMBERAS Y FUEGOS',
-                                choices=['Avara', 'A*'],
+        informada = eg.indexbox(msg='                                BOMBERAS Y FUEGOS\n\n                        QUE METODO DESEA PARA LA BUSQUEDA',
+                                title='PROYECTO #1 IA',
+                                choices=['\n   Avara    \n', '\n    A*    \n'],
                                     image='images/mallabomberita.png',
                                 )
         if informada == 0:
-            print("Usted seleccionó Avara, una ventana aparecerá cuando el algoritmo acabe, si el proceso es demorado significa que sigue expandiendo nodos, si considera que es mucho tiempo puede cortar la ejecución.\n")
             avara.avara(matriz)
         elif informada == 1:
-            print("Usted seleccionó A*, una ventana aparecerá cuando el algoritmo acabe, si el proceso es demorado significa que sigue expandiendo nodos, si considera que es mucho tiempo puede cortar la ejecución.\n")
             a.a(matriz)
         else:
             sys.exit(0)
@@ -104,7 +103,7 @@ def main():
         preguntarBusquedaInformada(matriz)
 
     repetir = eg.indexbox(
-        msg='¿Desea realizar otra búsqueda?', title='BOMBERAS Y FUEGOS', choices=['Sí, con el mismo archivo', 'Sí, con otro archivo', 'No'])
+        msg='\n\n             ¿QUIERES VOLVER A PONER A LA BOMBERITA EN UNA AVENTURA?', title='PROYECTO #1 IA', choices=['SI\n CON EL MISMO LABERITO', 'SI\n CON OTRO LABERITO', 'NO\n QUIERO'])
     print(repetir)
     while repetir >= 0 and repetir <= 2:
         limpiar_consola()
