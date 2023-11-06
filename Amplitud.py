@@ -14,7 +14,7 @@ if __name__ == '__main__':
 
 def amplitud(matriz):
 
-    colores = ['white', 'gray', 'orange', 'red', 'pink', 'green', 'blue']
+    colores = ['#FFF6FF', '#5C0057', '#FF00B5', '#B07DFF', '#B07DFF', '#FFAAD6', '#00D1FF']
     cmap = ListedColormap(colores)
 
     nodosExpandidos = 0
@@ -219,8 +219,8 @@ def amplitud(matriz):
             arrayExpansion.pop(0)
 
     if not nodoMaestro:
-        eg.msgbox(msg="No se encontró una solución con el siguiente input",
-                  title="Resultado", image="images/mallabonberita.png")
+        eg.msgbox(msg="\n\n          LA BOMBERITA NO ENCONTRO LA SOLUCION PARA EL LABERINTO",
+                  title="RESULTADO", image="images/mallabonberita.png")
     else:
         camino = nodoMaestro.encontrarAncestros()
         nodosExpandidos = raiz.nodosExpandidos()
@@ -229,8 +229,8 @@ def amplitud(matriz):
 
         timeFinal = time.time()
         timeComputing = timeFinal - timeInitial
-        eg.msgbox(msg="Se encontró una solución con los siguientes datos:\n\nNodos expandidos: " + str(nodosExpandidos) + "\nProfundidad del árbol: " +
-                  str(profundidadArbol) + "\nTiempo de ejecución: " + str(timeComputing)[:10] + " segundos\n\nAhora se visualizará el camino que tomaría la bombera", title="Resultado")
+        eg.msgbox(msg="\n             LA BOMBERITA ENCONTRO UNA SOLUCION CON ESTOS DATOS\n\n  NODOS:   " + str(nodosExpandidos) + "\n  PROFUNDIDAD DEL ARBOL:  " +
+                  str(profundidadArbol) + "\n  TIEMPO: " + str(timeComputing)[:10] + " SEG \n\n              \   ESTE FUE EL CAMINO QUE TOMO LA BOMBERITA", title="RESULTADO")
 
 
 
