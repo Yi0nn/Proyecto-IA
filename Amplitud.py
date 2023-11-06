@@ -230,7 +230,7 @@ def amplitud(matriz):
         timeFinal = time.time()
         timeComputing = timeFinal - timeInitial
         eg.msgbox(msg="\n             LA BOMBERITA ENCONTRO UNA SOLUCION CON ESTOS DATOS\n\n  NODOS:   " + str(nodosExpandidos) + "\n  PROFUNDIDAD DEL ARBOL:  " +
-                  str(profundidadArbol) + "\n  TIEMPO: " + str(timeComputing)[:10] + " SEG \n\n              \   ESTE FUE EL CAMINO QUE TOMO LA BOMBERITA", title="RESULTADO")
+                  str(profundidadArbol) + "\n  TIEMPO: " + str(timeComputing)[:10] + " SEG \n\n                 ESTE FUE EL CAMINO QUE TOMO LA BOMBERITA", title="RESULTADO")
 
 
 
@@ -240,19 +240,19 @@ def amplitud(matriz):
         plt.yticks([])
         fig = plt.gcf()
         fig.canvas.manager.set_window_title(
-            "Camino de la Bombera para apagar el fuego usando Amplitud")
-        textoCubeta = ax.text(0.2, 1.05, "Cubeta: " + str(0),
+            "BUSQUEDA POR AMPLITUD")
+        textoCubeta = ax.text(0.2, 1.05, "NO CUBETAS: " + str(0)+"\n ",
                                 fontsize=12, ha="center", va="center", transform=ax.transAxes)
-        textoFuego = ax.text(0.8, 1.05, "Fuego: " + str(0),
+        textoFuego = ax.text(0.8, 1.05, "FUEGOS APAGADOS: " + str(0)+"\n ",
                                fontsize=12, ha="center", va="center", transform=ax.transAxes)
 
         plt.pause(0.5)
         for i in camino:
             textoCubeta.remove()
             textoFuego.remove()
-            textoCubeta = ax.text(0.2, 1.05, "Cubeta: " + str(
-                i.cubetas), fontsize=12, ha="center", va="center", transform=ax.transAxes)
-            textoFuego = ax.text(0.8, 1.05, "Fuego: " + str(i.fuego),
+            textoCubeta = ax.text(0.2, 1.05, "NO CUBETAS: " + str(
+                i.cubetas)+"\n ", fontsize=12, ha="center", va="center", transform=ax.transAxes)
+            textoFuego = ax.text(0.8, 1.05, "FUEGOS APAGADOS: " + str(i.fuego)+"\n ",
                                    fontsize=12, ha="center", va="center", transform=ax.transAxes)
             
             textoCubeta
