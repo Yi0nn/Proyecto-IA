@@ -25,7 +25,7 @@ def avara(matriz):
     for i in range(len(matriz)):
         for j in range(len(matriz[i])):
             if matriz[i][j] == 5:
-                positionGoku = [i, j]
+                positionBombera = [i, j]
 
     class Nodo:
         def __init__(self, valor_heuristico, profundidad, padre, posicion_y, posicion_x, hijos, matriz, cubetas, fuego, llenadoagua, hidrante):
@@ -233,8 +233,8 @@ def avara(matriz):
                     posicionfuego.append([i, j])
         return posicionfuego
 
-    raiz = Nodo(0, 0, None, positionGoku[0],
-                positionGoku[1], [], matriz, 0, 0, 0, 0)
+    raiz = Nodo(0, 0, None, positionBombera[0],
+                positionBombera[1], [], matriz, 0, 0, 0, 0)
 
     raiz.valor_heuristico = heuristica(
         raiz.matriz, raiz.posicion_y, raiz.posicion_x)
@@ -257,7 +257,7 @@ def avara(matriz):
 
     if not nodoMaestro:
         eg.msgbox(msg="No se encontró una solución con el siguiente input",
-                  title="Resultado", image="images/mallaGokuSmart.png")
+                  title="Resultado", image="images/mallabomberita.png")
     else:
         camino = nodoMaestro.encontrarAncestros()
         nodosExpandidos = raiz.nodosExpandidos()
@@ -285,7 +285,7 @@ def avara(matriz):
         timeFinal = time.time()
         timeComputing = timeFinal - timeInitial
         eg.msgbox(msg="Se encontró una solución con los siguientes datos:\n\nNodos expandidos: " + str(nodosExpandidos) + "\nProfundidad del árbol: " +
-                  str(profundidadArbol) + "\nTiempo de ejecución: " + str(timeComputing)[:10] + " segundos\n\nAhora se visualizará el camino que tomaría Goku", title="Resultado")
+                  str(profundidadArbol) + "\nTiempo de ejecución: " + str(timeComputing)[:10] + " segundos\n\nAhora se visualizará el camino que tomaría la Bombera", title="Resultado")
 
         # Visualización de camino
         fig, ax = plt.subplots()
@@ -294,22 +294,22 @@ def avara(matriz):
         plt.yticks([])
         fig = plt.gcf()
         fig.canvas.manager.set_window_title(
-            "Camino de Goku para encontrar las fuego del dragón usando Avara")
-        textoSemillas = ax.text(0.2, 1.05, "Cubetas: " + str(0),
+            "Camino de la Bombera para apagar el fuego usando Avara")
+        textoCubeta = ax.text(0.2, 1.05, "Cubeta: " + str(0),
                                 fontsize=12, ha="center", va="center", transform=ax.transAxes)
-        textofuego = ax.text(0.8, 1.05, "Llenado: " + str(0),
+        textoFuego = ax.text(0.8, 1.05, "Fuego: " + str(0),
                                fontsize=12, ha="center", va="center", transform=ax.transAxes)
 
         plt.pause(0.5)
         for i in camino:
             textoSemillas.remove()
-            textofuego.remove()
-            textoSemillas = ax.text(0.2, 1.05, "Cubetas: " + str(
+            textoFuego.remove()
+            textoSemillas = ax.text(0.2, 1.05, "Cubeta: " + str(
                 i.cubetas), fontsize=12, ha="center", va="center", transform=ax.transAxes)
-            textofuego = ax.text(0.8, 1.05, "Llenado: " + str(i.llenadoagua),
+            textoFuego = ax.text(0.8, 1.05, "Fuego: " + str(i.fuego),
                                    fontsize=12, ha="center", va="center", transform=ax.transAxes)
             textoSemillas
-            textofuego
+            textoFuego
             matrizTemp = i.matriz
             im.set_data(matrizTemp)
             plt.draw()
