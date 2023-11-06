@@ -82,10 +82,12 @@ def ProfundidadECiclos(matriz):
                 if self.matriz[posicionAMover_y][posicionAMover_x] == 3:
                         cubetas= 1
                         llenadoagua=0
+                        self.devolver = True
 
                 elif self.matriz[posicionAMover_y][posicionAMover_x] == 4: ##Problema 2 coje la cubeta y no suma en cubeta # problema 3 no desaparece la cubeta
                         cubetas= 2
                         llenadoagua=0
+                        self.devolver = True
 
                 elif self.matriz[posicionAMover_y][posicionAMover_x] == 6 :#hidrante ## problema #1 no tiene cubeta y coje awa 
                     hidrante = 1
@@ -106,9 +108,11 @@ def ProfundidadECiclos(matriz):
                                     fuego =fuego + 1
                                     llenadoagua -=1
 
+
                                 elif self.llenadoagua == 1:
                                     fuego =fuego + 1
                                     llenadoagua -=1
+
 
                 if self.hidrante ==1:
                      matrizNueva[self.posicion_y][self.posicion_x] = 6
@@ -126,6 +130,7 @@ def ProfundidadECiclos(matriz):
                 nuevohijo = Nodo(self.costo+costo, self.profundidad+1, self, posicionAMover_y, posicionAMover_x,
                                 [], matrizNueva,self.cubetas+cubetas,self.fuego+fuego , self.llenadoagua + llenadoagua, hidrante) #esto da  bn
             
+                print(self.costo)
 
                 if nuevohijo.mallaIgualAntecesor(self) == False:
                     nuevohijo.permitirCiclo = True

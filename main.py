@@ -102,7 +102,7 @@ def main():
     elif (tipoBusqueda == 1):
         preguntarBusquedaInformada(matriz)
 
-        repetir = eg.indexbox(
+    repetir = eg.indexbox(
         msg='¿Desea realizar otra búsqueda?', title='Goku Smart', choices=['Sí, con el mismo archivo', 'Sí, con otro archivo', 'No'])
     print(repetir)
     while repetir >= 0 and repetir <= 2:

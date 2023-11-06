@@ -82,57 +82,62 @@ def costoU(matriz):
                 if self.matriz[posicionAMover_y][posicionAMover_x] == 3:
                         cubetas= 1
                         llenadoagua=0
-                        self.devolver=True 
+                        self.devolver= True
 
                 elif self.matriz[posicionAMover_y][posicionAMover_x] == 4: ##Problema 2 coje la cubeta y no suma en cubeta # problema 3 no desaparece la cubeta
                         cubetas= 2
                         llenadoagua=0
-                        self.devolver =True
+                        self.devolver= True
 
                 elif self.matriz[posicionAMover_y][posicionAMover_x] == 6 :#hidrante ## problema #1 no tiene cubeta y coje awa 
                     hidrante = 1
                     if(self.cubetas == 1 and self.llenadoagua == 0):
                         llenadoagua = 1
-                        self.devolver= True
+                        costo = 2 
 
                     elif(self.cubetas == 2 and self.llenadoagua == 0):
                         llenadoagua = 2
-                        self.devolver= True
+                        costo =3
                 
                 elif matrizNueva[posicionAMover_y][posicionAMover_x] == 2: #PUNTO DE FUEGO 
                 #los que nunca cambia quiere decir que en toda la ejecucion llega a 0 
                       if (self.cubetas == 1 and self.llenadoagua > 0):
                                   fuego = fuego + 1  
                                   llenadoagua -=1
-                                  self.devolver = True
+                                  costo = 1
+                                  self.devolver= True
 
                       elif(self.cubetas == 2 and self.llenadoagua > 0):
                                 if self.llenadoagua == 2:
                                     fuego =fuego + 1
                                     llenadoagua -=1
-                                    self.devolver = True
-
+                                    costo = 2
+                                    self.devolver= True
+                                
                                 elif self.llenadoagua == 1:
                                     fuego =fuego + 1
                                     llenadoagua -=1
-                                    self.devolver = True
+                                    costo =1
+                                    self.devolver= True
 
                 if self.hidrante ==1:
                      matrizNueva[self.posicion_y][self.posicion_x] = 6
 
                 if(llenadoagua== 1):
-                     costo = 2
+                     print( " +  1", costo)
+                     costo += 1
                 elif(llenadoagua == 2):
-                     costo= 3
+                     print( " + 2",costo)
+                     costo += 2
                 else:
-                     costo= 1
+                     costo = 1
 
                 #self.imprimirMatriz()
                 #SE SUPONE QUE ESTA ES LA NUEVA MATRIZ CON EL MOVIMIENTO QUE SE REALIZO SE S U P O N E 
                 matrizNueva[posicionAMover_y][posicionAMover_x] = 5
                 nuevohijo = Nodo(self.costo+costo, self.profundidad+1, self, posicionAMover_y, posicionAMover_x,
                                 [], matrizNueva,self.cubetas+cubetas,self.fuego+fuego , self.llenadoagua + llenadoagua, hidrante) #esto da  bn
-                print (self.costo)
+                
                 if self.padre == None:
                     arrayExpansion.append(nuevohijo)
                     self.hijos.append(nuevohijo)
@@ -260,9 +265,9 @@ def costoU(matriz):
         for i in camino:
             textoSemillas.remove()
             textoEsferas.remove()
-            textoSemillas = ax.text(0.2, 1.05, "Semillas actuales: " + str(
-                i.cubetas), fontsize=12, ha="center", va="center", transform=ax.transAxes)
-            textoEsferas = ax.text(0.8, 1.05, "Esferas actuales: " + str(i.llenadoagua),
+            textoSemillas = ax.text(0.2, 1.05, "Costos: " + str(
+                i.costo), fontsize=12, ha="center", va="center", transform=ax.transAxes)
+            textoEsferas = ax.text(0.8, 1.05, "LLenado: " + str(i.llenadoagua),
                                    fontsize=12, ha="center", va="center", transform=ax.transAxes)
             textoSemillas
             textoEsferas
