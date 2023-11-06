@@ -241,7 +241,7 @@ def amplitud(matriz):
         fig = plt.gcf()
         fig.canvas.manager.set_window_title(
             "BUSQUEDA POR AMPLITUD")
-        textoCubeta = ax.text(0.2, 1.05, "NO CUBETAS: " + str(0)+"\n ",
+        textoCubeta = ax.text(0.2, 1.05, "NO. CUBETAS: " + str(0)+"\n ",
                                 fontsize=12, ha="center", va="center", transform=ax.transAxes)
         textoFuego = ax.text(0.8, 1.05, "FUEGOS APAGADOS: " + str(0)+"\n ",
                                fontsize=12, ha="center", va="center", transform=ax.transAxes)
@@ -250,7 +250,7 @@ def amplitud(matriz):
         for i in camino:
             textoCubeta.remove()
             textoFuego.remove()
-            textoCubeta = ax.text(0.2, 1.05, "NO CUBETAS: " + str(
+            textoCubeta = ax.text(0.2, 1.05, "NO. CUBETAS: " + str(
                 i.cubetas)+"\n ", fontsize=12, ha="center", va="center", transform=ax.transAxes)
             textoFuego = ax.text(0.8, 1.05, "FUEGOS APAGADOS: " + str(i.fuego)+"\n ",
                                    fontsize=12, ha="center", va="center", transform=ax.transAxes)
