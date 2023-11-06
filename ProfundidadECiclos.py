@@ -14,6 +14,7 @@ if __name__ == '__main__':
 
 
 def ProfundidadECiclos(matriz):
+
     colores = ['white', 'gray', 'orange', 'red', 'pink', 'green', 'blue']
     cmap = ListedColormap(colores)
 
@@ -51,24 +52,28 @@ def ProfundidadECiclos(matriz):
             if self.posicion_y > 0:
                 arriba = self.matriz[self.posicion_y-1][self.posicion_x]
                 if arriba != 1:
+                    # print(("Se puede mover hacia arriba"))
                     self.crearHijo(self.posicion_y-1,
                                    self.posicion_x, arrayExpansion)
 
             if self.posicion_y < len(self.matriz) - 1:
                 abajo = self.matriz[self.posicion_y+1][self.posicion_x]
                 if abajo != 1:
+                    # print(("Se puede mover hacia abajo"))
                     self.crearHijo(self.posicion_y+1,
                                    self.posicion_x, arrayExpansion)
 
             if self.posicion_x < len(self.matriz[self.posicion_y]) - 1:
                 derecha = self.matriz[self.posicion_y][self.posicion_x+1]
                 if derecha != 1:
+                    # print(("Se puede mover hacia derecha"))
                     self.crearHijo(self.posicion_y,
                                    self.posicion_x+1, arrayExpansion)
 
             if self.posicion_x > 0:
                 izquierda = self.matriz[self.posicion_y][self.posicion_x-1]
                 if izquierda != 1:
+                    # print(("Se puede mover hacia izquierda"))
                     self.crearHijo(self.posicion_y,
                                    self.posicion_x-1, arrayExpansion)
 
@@ -97,7 +102,7 @@ def ProfundidadECiclos(matriz):
 
                     elif(self.cubetas == 2 and self.llenadoagua == 0):
                         llenadoagua = 2
-                
+
                 elif matrizNueva[posicionAMover_y][posicionAMover_x] == 2: #PUNTO DE FUEGO 
                 #los que nunca cambia quiere decir que en toda la ejecucion llega a 0 
                       if (self.cubetas == 1 and self.llenadoagua > 0):
@@ -108,7 +113,7 @@ def ProfundidadECiclos(matriz):
                                 if self.llenadoagua == 2:
                                     fuego =fuego + 1
                                     llenadoagua -=1
-                                
+
                                 elif self.llenadoagua == 1:
                                     fuego =fuego + 1
                                     llenadoagua -=1
@@ -125,7 +130,7 @@ def ProfundidadECiclos(matriz):
                 matrizNueva[posicionAMover_y][posicionAMover_x] = 5
                 nuevohijo = Nodo(self.costo+costo, self.profundidad+1, self, posicionAMover_y, posicionAMover_x,
                                 [], matrizNueva,self.cubetas+cubetas,self.fuego+fuego , self.llenadoagua + llenadoagua, hidrante)
-                
+
                 if nuevohijo.mallaIgualAntecesor(self) == False:
                     nuevohijo.permitirCiclo = True
 
@@ -264,4 +269,3 @@ def ProfundidadECiclos(matriz):
                 break
         time.sleep(1)
         plt.close("all")
-
