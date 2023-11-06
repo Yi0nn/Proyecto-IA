@@ -2,7 +2,7 @@ import os
 import sys
 import easygui as eg
 from PIL import Image
-#import avara as avara
+import Avara as avara
 import A as a
 import matplotlib.pyplot as plt
 import Amplitud as amplitud
@@ -88,6 +88,7 @@ def main():
                                 )
         if informada == 0:
             print("Usted seleccionó Avara, una ventana aparecerá cuando el algoritmo acabe, si el proceso es demorado significa que sigue expandiendo nodos, si considera que es mucho tiempo puede cortar la ejecución.\n")
+            avara.avara(matriz)
         elif informada == 1:
             print("Usted seleccionó A*, una ventana aparecerá cuando el algoritmo acabe, si el proceso es demorado significa que sigue expandiendo nodos, si considera que es mucho tiempo puede cortar la ejecución.\n")
             a.a(matriz)
