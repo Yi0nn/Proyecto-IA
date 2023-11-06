@@ -131,7 +131,7 @@ def ProfundidadECiclos(matriz):
                      costo +=2
 
 
-                matrizNueva[posicionAMover_y][posicionAMover_x] = 2
+                matrizNueva[posicionAMover_y][posicionAMover_x] = 5
                 nuevohijo = Nodo(self.costo+costo, self.profundidad+1, self, posicionAMover_y, posicionAMover_x,
                                 [], matrizNueva,self.cubetas+cubetas,self.fuego+fuego , self.llenadoagua + llenadoagua, hidrante)
                 
