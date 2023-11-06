@@ -12,7 +12,12 @@ from matplotlib.colors import ListedColormap
 if __name__ == '__main__':
     main()
 
+
 def ProfundidadECiclos(matriz):
+    # matriz = [[1, 1, 1, 1],
+    #          [0, 0, 6, 2],
+    #         [0, 1, 3, 1],
+    #        [0, 6, 0, 1]]
 
     colores = ['white', 'gray', 'orange', 'red', 'pink', 'green', 'blue']
     cmap = ListedColormap(colores)
@@ -23,13 +28,13 @@ def ProfundidadECiclos(matriz):
     arrayExpansion = []
     timeInitial = time.time()
 
-    for i in range(len(matriz)):#para recorrer las lineas de la matriz
-        for j in range(len(matriz[i])):# para recorrer espacios de la matriz 
-            if matriz[i][j] == 5: # posicion inicial
-                positionGoku = [i, j]#posicion x y 
+    for i in range(len(matriz)):
+        for j in range(len(matriz[i])):
+            if matriz[i][j] == 2:
+                positionGoku = [i, j]
 
     class Nodo:
-        def __init__(self, costo, profundidad, padre, posicion_y, posicion_x, hijos, matriz, cubetas, fuego, llenadoagua, hidrante): #11 argumentos
+        def __init__(self, costo, profundidad, padre, posicion_y, posicion_x, hijos, matriz, cubetas, fuego, llenadoagua, hidrante):
             self.costo = costo
             self.profundidad = profundidad
             self.expandido = False
@@ -51,24 +56,31 @@ def ProfundidadECiclos(matriz):
             if self.posicion_y > 0:
                 arriba = self.matriz[self.posicion_y-1][self.posicion_x]
                 if arriba != 1:
+                    # print(("Se puede mover hacia arriba"))
                     self.crearHijo(self.posicion_y-1,
                                    self.posicion_x, arrayExpansion)
+
             if self.posicion_y < len(self.matriz) - 1:
                 abajo = self.matriz[self.posicion_y+1][self.posicion_x]
                 if abajo != 1:
+                    # print(("Se puede mover hacia abajo"))
                     self.crearHijo(self.posicion_y+1,
                                    self.posicion_x, arrayExpansion)
+
             if self.posicion_x < len(self.matriz[self.posicion_y]) - 1:
                 derecha = self.matriz[self.posicion_y][self.posicion_x+1]
                 if derecha != 1:
+                    # print(("Se puede mover hacia derecha"))
                     self.crearHijo(self.posicion_y,
                                    self.posicion_x+1, arrayExpansion)
+
             if self.posicion_x > 0:
                 izquierda = self.matriz[self.posicion_y][self.posicion_x-1]
                 if izquierda != 1:
+                    # print(("Se puede mover hacia izquierda"))
                     self.crearHijo(self.posicion_y,
                                    self.posicion_x-1, arrayExpansion)
-                    
+
         def crearHijo(self, posicionAMover_y, posicionAMover_x, arrayExpansion):
                 matrizNueva = deepcopy(self.matriz)
                 costo = 1
@@ -82,12 +94,10 @@ def ProfundidadECiclos(matriz):
                 if self.matriz[posicionAMover_y][posicionAMover_x] == 3:
                         cubetas= 1
                         llenadoagua=0
-                        self.devolver = True
 
                 elif self.matriz[posicionAMover_y][posicionAMover_x] == 4: ##Problema 2 coje la cubeta y no suma en cubeta # problema 3 no desaparece la cubeta
                         cubetas= 2
                         llenadoagua=0
-                        self.devolver = True
 
                 elif self.matriz[posicionAMover_y][posicionAMover_x] == 6 :#hidrante ## problema #1 no tiene cubeta y coje awa 
                     hidrante = 1
@@ -107,30 +117,22 @@ def ProfundidadECiclos(matriz):
                                 if self.llenadoagua == 2:
                                     fuego =fuego + 1
                                     llenadoagua -=1
-
-
+                                
                                 elif self.llenadoagua == 1:
                                     fuego =fuego + 1
                                     llenadoagua -=1
 
-
                 if self.hidrante ==1:
                      matrizNueva[self.posicion_y][self.posicion_x] = 6
 
-                if(llenadoagua== 1):
-                     costo = 2
-                elif(llenadoagua == 2):
-                     costo= 3
-                else:
-                     costo= 1
+                if(self.llenadoagua == 1):
+                     costo +=1
+                elif(self.llenadoagua == 2):
+                     costo +=2
 
-                #self.imprimirMatriz()
-                #SE SUPONE QUE ESTA ES LA NUEVA MATRIZ CON EL MOVIMIENTO QUE SE REALIZO SE S U P O N E 
-                matrizNueva[posicionAMover_y][posicionAMover_x] = 5
+                matrizNueva[posicionAMover_y][posicionAMover_x] = 2
                 nuevohijo = Nodo(self.costo+costo, self.profundidad+1, self, posicionAMover_y, posicionAMover_x,
-                                [], matrizNueva,self.cubetas+cubetas,self.fuego+fuego , self.llenadoagua + llenadoagua, hidrante) #esto da  bn
-            
-                print(self.costo)
+                                [], matrizNueva,self.cubetas+cubetas,self.fuego+fuego , self.llenadoagua + llenadoagua, hidrante)
 
                 if nuevohijo.mallaIgualAntecesor(self) == False:
                     nuevohijo.permitirCiclo = True
@@ -145,7 +147,7 @@ def ProfundidadECiclos(matriz):
                     elif nuevohijo.entraCiclo(self.padre) == False:
                         arrayExpansion.append(nuevohijo)
                         self.hijos.append(nuevohijo)
-            
+
         def mallaIgualAntecesor(hijo, padre):
             ancestros = padre.encontrarAncestros()
             if hijo.matriz == padre.matriz:
@@ -155,6 +157,7 @@ def ProfundidadECiclos(matriz):
                     return True
             return False
 
+
         def entraCiclo(hijo, padre):
             ancestros = padre.encontrarAncestros()
             if hijo.posicion_x == padre.posicion_x and hijo.posicion_y == padre.posicion_y:
@@ -163,8 +166,6 @@ def ProfundidadECiclos(matriz):
                 if hijo.posicion_x == ancestro.posicion_x and hijo.posicion_y == ancestro.posicion_y:
                     return True
             return False
-
-        
 
         def imprimirMatriz(self):
             for i in range(len(self.matriz)):
@@ -216,11 +217,12 @@ def ProfundidadECiclos(matriz):
     nodoMaestro = None
 
     while len(arrayExpansion) != 0:
-        arrayExpansion.sort(key=lambda x: x.profundidad, reverse=True)## PARA prof e ciclos
+        arrayExpansion.sort(key=lambda x: x.profundidad, reverse=True)
         if arrayExpansion[0].fuego == 2:
             nodoMaestro = arrayExpansion[0]
             nodoMaestro.solucion = True
             nodoMaestro.expandido = True
+            # nodoMaestro.expandir(arrayExpansion)
             break
         else:
             arrayExpansion[0].expandir(arrayExpansion)
@@ -228,23 +230,35 @@ def ProfundidadECiclos(matriz):
 
     if not nodoMaestro:
         eg.msgbox(msg="No se encontró una solución con el siguiente input",
-                  title="Resultado", image="Images/mallabomberita.png")
+                  title="Resultado", image="images/mallabomberitas.png")
     else:
         camino = nodoMaestro.encontrarAncestros()
         nodosExpandidos = raiz.nodosExpandidos()
         profundidadArbol = raiz.profundidadArbol()
 
         # Se imprime el camino con valores de profundidad y costo
-        for i in camino:
-            i.imprimirMatriz()
-            print("costo: ", i.costo, "profundidad: ", i.profundidad)
-            print()
+        # for i in camino:
+        #     i.imprimirMatriz()
+        #     print("profundidad: ", i.profundidad, "valor heuristico: ", i.valor_heuristico)
+        #     print()
+
+        # Generación de grafos
+        # def generar_grafo_1(nodo, grafo):
+        #     temp = "Matriz:\n"+nodo.generarMatrizString()+"\nCon valor: " + \
+        #         str(nodo.costo) + "\nExpandido: "+str(nodo.expandido)
+        #     grafo.node(str(id(nodo)), label=temp)
+        #     for hijo in nodo.hijos:
+        #         grafo.edge(str(id(nodo)), str(id(hijo)))
+        #         generar_grafo_1(hijo, grafo)
+        # grafo1 = Digraph()
+        # generar_grafo_1(raiz, grafo1)
+        # grafo1.render('grafo', view=True)
 
         # Impresión de resultados
         timeFinal = time.time()
         timeComputing = timeFinal - timeInitial
         eg.msgbox(msg="Se encontró una solución con los siguientes datos:\n\nNodos expandidos: " + str(nodosExpandidos) + "\nProfundidad del árbol: " +
-                  str(profundidadArbol) + "\nCosto de la solución: " + str(costo) + "\nTiempo de ejecución: " + str(timeComputing)[:10] + " segundos\n\nAhora se visualizará el camino que tomaría Goku", title="Resultado")
+                  str(profundidadArbol) + "\nTiempo de ejecución: " + str(timeComputing)[:10] + " segundos\n\nAhora se visualizará el camino que tomaría Goku", title="Resultado")
 
         # Visualización de camino
         fig, ax = plt.subplots()
@@ -253,7 +267,7 @@ def ProfundidadECiclos(matriz):
         plt.yticks([])
         fig = plt.gcf()
         fig.canvas.manager.set_window_title(
-            "Camino de Goku para encontrar las esferas del dragón usando Costo Uniforme")
+            "Camino de Goku para encontrar las esferas del dragón usando Profundidad Evitando Ciclos")
         textoSemillas = ax.text(0.2, 1.05, "Semillas actuales: " + str(0),
                                 fontsize=12, ha="center", va="center", transform=ax.transAxes)
         textoEsferas = ax.text(0.8, 1.05, "Esferas actuales: " + str(0),
@@ -263,17 +277,18 @@ def ProfundidadECiclos(matriz):
         for i in camino:
             textoSemillas.remove()
             textoEsferas.remove()
-            textoSemillas = ax.text(0.2, 1.05, "Semillas actuales: " + str(
-                i.cubetas), fontsize=12, ha="center", va="center", transform=ax.transAxes)
-            textoEsferas = ax.text(0.8, 1.05, "Esferas actuales: " + str(i.llenadoagua),
+            textoSemillas = ax.text(0.2, 1.05, "Costos: " + str(
+                i.costo), fontsize=12, ha="center", va="center", transform=ax.transAxes)
+            textoEsferas = ax.text(0.8, 1.05, "LLenado: " + str(i.llenadoagua),
                                    fontsize=12, ha="center", va="center", transform=ax.transAxes)
             textoSemillas
             textoEsferas
             matrizTemp = i.matriz
             im.set_data(matrizTemp)
             plt.draw()
-            plt.pause(0.3)
+            plt.pause(0.5)
             if not plt.get_fignums():
                 break
         time.sleep(1)
         plt.close("all")
+
