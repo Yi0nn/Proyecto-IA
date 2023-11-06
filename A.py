@@ -30,8 +30,8 @@ def a(matriz):
                 positionGoku = [i, j]
 
     class Nodo:
-        def __init__(self, costo, profundidad, padre, posicion_y, posicion_x, hijos, matriz, cubetas, fuego, llenadoagua, hidrante): #11 argumentos
-            self.costo = costo
+        def __init__(self, costo_real, valor_heuristico, profundidad, padre, posicion_y, posicion_x, hijos, matriz, cubetas, fuego, llenadoagua, hidrante): #11 argumentos
+            self.valor_heuristico = valor_heuristico
             self.profundidad = profundidad
             self.expandido = False
             self.padre = padre#posicion inicial del punto del arbol 
@@ -60,14 +60,14 @@ def a(matriz):
                         # print(("Se puede mover hacia arriba"))
                         self.crearHijo(self.posicion_y-1,
                                     self.posicion_x, arrayExpansion)
-                        
+
                 if self.posicion_y < len(self.matriz) - 1:
                     abajo = self.matriz[self.posicion_y+1][self.posicion_x]
                     if abajo != 1:
                         # print(("Se puede mover hacia abajo"))
                         self.crearHijo(self.posicion_y+1,
                                     self.posicion_x, arrayExpansion)
-                        
+
                 if self.posicion_x > 0:
                     izquierda = self.matriz[self.posicion_y][self.posicion_x-1]
                     if izquierda != 1:
@@ -81,7 +81,7 @@ def a(matriz):
                         # print(("Se puede mover hacia derecha"))
                         self.crearHijo(self.posicion_y,
                                     self.posicion_x+1, arrayExpansion)
-     
+
         def crearHijo(self, posicionAMover_y, posicionAMover_x, arrayExpansion):
                 matrizNueva = deepcopy(self.matriz)
                 costo = 1
@@ -113,7 +113,7 @@ def a(matriz):
                         costo = 3
                         llenadoagua = 2
                         self.devolver= True
-                
+
                 elif matrizNueva[posicionAMover_y][posicionAMover_x] == 2: #PUNTO DE FUEGO 
                 #los que nunca cambia quiere decir que en toda la ejecucion llega a 0 
                       if (self.cubetas == 1 and self.llenadoagua > 0):
@@ -137,7 +137,9 @@ def a(matriz):
 
                 if self.hidrante ==1:
                      matrizNueva[self.posicion_y][self.posicion_x] = 6
-
+                  
+                valor_heuristico = heuristica(
+                  matrizNueva, posicionAMover_y, posicionAMover_x)
                 #self.imprimirMatriz()
                 #SE SUPONE QUE ESTA ES LA NUEVA MATRIZ CON EL MOVIMIENTO QUE SE REALIZO SE S U P O N E 
                 matrizNueva[posicionAMover_y][posicionAMover_x] = 5
@@ -227,7 +229,7 @@ def a(matriz):
         return posicionFuego
 
     raiz = Nodo(0, 0, 0, None, positionGoku[0],
-                positionGoku[1], [], matriz, 0, 0, 0)
+                positionGoku[1], [], matriz, 0, 0, 0, 0)
 
     raiz.valor_heuristico = heuristica(
         raiz.matriz, raiz.posicion_y, raiz.posicion_x)
