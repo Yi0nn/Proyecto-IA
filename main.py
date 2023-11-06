@@ -82,9 +82,9 @@ def main():
 
     def preguntarBusquedaInformada(matriz):
         informada = eg.indexbox(msg='¿Qué busqueda desea realizar con el siguiente input?',
-                                title='Goku Smart',
+                                title='BOMBERAS Y FUEGOS',
                                 choices=['Avara', 'A*'],
-                                    image='images/mallaGokuSmart.png',
+                                    image='images/mallabomberita.png',
                                 )
         if informada == 0:
             print("Usted seleccionó Avara, una ventana aparecerá cuando el algoritmo acabe, si el proceso es demorado significa que sigue expandiendo nodos, si considera que es mucho tiempo puede cortar la ejecución.\n")
@@ -104,7 +104,7 @@ def main():
         preguntarBusquedaInformada(matriz)
 
     repetir = eg.indexbox(
-        msg='¿Desea realizar otra búsqueda?', title='Goku Smart', choices=['Sí, con el mismo archivo', 'Sí, con otro archivo', 'No'])
+        msg='¿Desea realizar otra búsqueda?', title='BOMBERAS Y FUEGOS', choices=['Sí, con el mismo archivo', 'Sí, con otro archivo', 'No'])
     print(repetir)
     while repetir >= 0 and repetir <= 2:
         limpiar_consola()
@@ -124,7 +124,7 @@ def main():
         elif (repetir == 2):
             sys.exit(0)
         repetir = eg.indexbox(
-            msg='¿Desea realizar otra búsqueda?', title='Goku Smart', choices=['Sí, con el mismo archivo', 'Sí, con otro archivo', 'No'])
+            msg='¿Desea realizar otra búsqueda?', title='BOMBERAS Y FUEGOS', choices=['Sí, con el mismo archivo', 'Sí, con otro archivo', 'No'])
 
 
 if __name__ == '__main__':
