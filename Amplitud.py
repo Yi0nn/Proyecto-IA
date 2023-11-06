@@ -128,6 +128,10 @@ def amplitud(matriz):
                 if self.hidrante ==1:
                      matrizNueva[self.posicion_y][self.posicion_x] = 6
 
+                if(self.llenadoagua == 1):
+                     costo +=1
+                elif(self.llenadoagua == 2):
+                     costo +=2
 
                 #self.imprimirMatriz()
                 #SE SUPONE QUE ESTA ES LA NUEVA MATRIZ CON EL MOVIMIENTO QUE SE REALIZO SE S U P O N E 
@@ -256,7 +260,7 @@ def amplitud(matriz):
             matrizTemp = i.matriz
             im.set_data(matrizTemp)
             plt.draw()
-            plt.pause(0.3)
+            plt.pause(0.5)
             if not plt.get_fignums():
                 break
         time.sleep(1)
