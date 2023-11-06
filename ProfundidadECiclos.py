@@ -231,7 +231,7 @@ def ProfundidadECiclos(matriz):
         timeFinal = time.time()
         timeComputing = timeFinal - timeInitial
         eg.msgbox(msg="Se encontró una solución con los siguientes datos:\n\nNodos expandidos: " + str(nodosExpandidos) + "\nProfundidad del árbol: " +
-                  str(profundidadArbol) + "\nTiempo de ejecución: " + str(timeComputing)[:10] + " segundos\n\nAhora se visualizará el camino que tomaría Goku", title="Resultado")
+                  str(profundidadArbol) + "\nTiempo de ejecución: " + str(timeComputing)[:10] + " segundos\n\nAhora se visualizará el camino que tomaría la Bombera", title="Resultado")
 
         # Visualización de camino
         fig, ax = plt.subplots()
@@ -241,21 +241,21 @@ def ProfundidadECiclos(matriz):
         fig = plt.gcf()
         fig.canvas.manager.set_window_title(
             "Camino de la Bombera para apagar el fuego usando Profundidad Evitando Ciclos")
-        textoSemillas = ax.text(0.2, 1.05, "Cubeta: " + str(0),
+        textoCubeta = ax.text(0.2, 1.05, "Cubeta: " + str(0),
                                 fontsize=12, ha="center", va="center", transform=ax.transAxes)
-        textoEsferas = ax.text(0.8, 1.05, "Fuego: " + str(0),
+        textoFuego = ax.text(0.8, 1.05, "Fuego: " + str(0),
                                fontsize=12, ha="center", va="center", transform=ax.transAxes)
 
         plt.pause(0.5)
         for i in camino:
-            textoSemillas.remove()
-            textoEsferas.remove()
-            textoSemillas = ax.text(0.2, 1.05, "Cubeta: " + str(
+            textoCubeta.remove()
+            textoFuego.remove()
+            textoCubeta = ax.text(0.2, 1.05, "Cubeta: " + str(
                 i.cubetas), fontsize=12, ha="center", va="center", transform=ax.transAxes)
-            textoEsferas = ax.text(0.8, 1.05, "Fuego: " + str(i.fuego),
+            textoFuego = ax.text(0.8, 1.05, "Fuego: " + str(i.fuego),
                                    fontsize=12, ha="center", va="center", transform=ax.transAxes)
-            textoSemillas
-            textoEsferas
+            textoCubeta
+            textoFuego
             matrizTemp = i.matriz
             im.set_data(matrizTemp)
             plt.draw()
