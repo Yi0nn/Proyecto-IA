@@ -15,7 +15,7 @@ if __name__ == '__main__':
 
 def ProfundidadECiclos(matriz):
 
-    colores = ['white', 'gray', 'orange', 'red', 'pink', 'green', 'blue']
+    colores = ['#FFF6FF', '#5C0057', '#FF00B5', '#B07DFF', '#B07DFF', '#FFAAD6', '#00D1FF']
     cmap = ListedColormap(colores)
 
     nodosExpandidos = 0
@@ -226,8 +226,8 @@ def ProfundidadECiclos(matriz):
             arrayExpansion.pop(0)
 
     if not nodoMaestro:
-        eg.msgbox(msg="No se encontró una solución con el siguiente input",
-                  title="Resultado", image="images/mallabomberitas.png")
+        eg.msgbox(msg="\n\n          LA BOMBERITA NO ENCONTRO LA SOLUCION PARA EL LABERINTO",
+                  title="RESULTADO", image="images/mallabomberitas.png")
     else:
         camino = nodoMaestro.encontrarAncestros()
         nodosExpandidos = raiz.nodosExpandidos()
@@ -235,8 +235,8 @@ def ProfundidadECiclos(matriz):
 
         timeFinal = time.time()
         timeComputing = timeFinal - timeInitial
-        eg.msgbox(msg="Se encontró una solución con los siguientes datos:\n\nNodos expandidos: " + str(nodosExpandidos) + "\nProfundidad del árbol: " +
-                  str(profundidadArbol) + "\nTiempo de ejecución: " + str(timeComputing)[:10] + " segundos\n\nAhora se visualizará el camino que tomaría la Bombera", title="Resultado")
+        eg.msgbox(msg="\n             LA BOMBERITA ENCONTRO UNA SOLUCION CON ESTOS DATOS\n\n  NODOS:   " + str(nodosExpandidos) + "\n  PROFUNDIDAD DEL ARBOL:  " +
+                  str(profundidadArbol) + "\n  TIEMPO: " + str(timeComputing)[:10] + " SEG \n\n                 ESTE FUE EL CAMINO QUE TOMO LA BOMBERITA", title="RESULTADO")
 
         # Visualización de camino
         fig, ax = plt.subplots()
@@ -245,19 +245,19 @@ def ProfundidadECiclos(matriz):
         plt.yticks([])
         fig = plt.gcf()
         fig.canvas.manager.set_window_title(
-            "Camino de la Bombera para apagar el fuego usando Profundidad Evitando Ciclos")
-        textoCubeta = ax.text(0.2, 1.05, "Cubeta: " + str(0),
+            "BUSQUEDA PROFUNDIDAD EVITANDO CICLOS")
+        textoCubeta = ax.text(0.2, 1.05, "NO. CUBETAS: " + str(0)+"\n ",
                                 fontsize=12, ha="center", va="center", transform=ax.transAxes)
-        textoFuego = ax.text(0.8, 1.05, "Fuego: " + str(0),
+        textoFuego = ax.text(0.8, 1.05, "FUEGOS APAGADOS: " + str(0)+"\n ",
                                fontsize=12, ha="center", va="center", transform=ax.transAxes)
 
         plt.pause(0.5)
         for i in camino:
             textoCubeta.remove()
             textoFuego.remove()
-            textoCubeta = ax.text(0.2, 1.05, "Cubeta: " + str(
-                i.cubetas), fontsize=12, ha="center", va="center", transform=ax.transAxes)
-            textoFuego = ax.text(0.8, 1.05, "Fuego: " + str(i.fuego),
+            textoCubeta = ax.text(0.2, 1.05, "NO. CUBETAS: " + str(
+                i.cubetas)+"\n ", fontsize=12, ha="center", va="center", transform=ax.transAxes)
+            textoFuego = ax.text(0.8, 1.05, "FUEGOS APAGADOS: " + str(i.fuego)+"\n ",
                                    fontsize=12, ha="center", va="center", transform=ax.transAxes)
             textoCubeta
             textoFuego
