@@ -257,24 +257,6 @@ def a(matriz):
         profundidadArbol = raiz.profundidadArbol()
         costo = nodoMaestro.costo_real
 
-        # Se imprime el camino con valores de profundidad y costo
-        # for i in camino:
-        #     i.imprimirMatriz()
-        #     print("profundidad: ", i.profundidad, "valor heuristico: ", i.valor_heuristico, "costo real: ", i.costo_real, "costo suma: ", i.costo_suma)
-        #     print()
-
-        # Generación de grafos
-        # def generar_grafo_1(nodo, grafo):
-        #     temp = "Matriz:\n"+nodo.generarMatrizString()+"\nCon valor: " + \
-        #         str(nodo.costo) + "\nExpandido: "+str(nodo.expandido)
-        #     grafo.node(str(id(nodo)), label=temp)
-        #     for hijo in nodo.hijos:
-        #         grafo.edge(str(id(nodo)), str(id(hijo)))
-        #         generar_grafo_1(hijo, grafo)
-        # grafo1 = Digraph()
-        # generar_grafo_1(raiz, grafo1)
-        # grafo1.render('grafo', view=True)
-
         # Impresión de resultados
         timeFinal = time.time()
         timeComputing = timeFinal - timeInitial
