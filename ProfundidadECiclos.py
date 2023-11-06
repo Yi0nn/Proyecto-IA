@@ -14,11 +14,6 @@ if __name__ == '__main__':
 
 
 def ProfundidadECiclos(matriz):
-    # matriz = [[1, 1, 1, 1],
-    #          [0, 0, 6, 2],
-    #         [0, 1, 3, 1],
-    #        [0, 6, 0, 1]]
-
     colores = ['white', 'gray', 'orange', 'red', 'pink', 'green', 'blue']
     cmap = ListedColormap(colores)
 
@@ -31,7 +26,7 @@ def ProfundidadECiclos(matriz):
     for i in range(len(matriz)):
         for j in range(len(matriz[i])):
             if matriz[i][j] == 5:
-                positionGoku = [i, j]
+                positionBombera = [i, j]
 
     class Nodo:
         def __init__(self, costo, profundidad, padre, posicion_y, posicion_x, hijos, matriz, cubetas, fuego, llenadoagua, hidrante):
@@ -56,28 +51,24 @@ def ProfundidadECiclos(matriz):
             if self.posicion_y > 0:
                 arriba = self.matriz[self.posicion_y-1][self.posicion_x]
                 if arriba != 1:
-                    # print(("Se puede mover hacia arriba"))
                     self.crearHijo(self.posicion_y-1,
                                    self.posicion_x, arrayExpansion)
 
             if self.posicion_y < len(self.matriz) - 1:
                 abajo = self.matriz[self.posicion_y+1][self.posicion_x]
                 if abajo != 1:
-                    # print(("Se puede mover hacia abajo"))
                     self.crearHijo(self.posicion_y+1,
                                    self.posicion_x, arrayExpansion)
 
             if self.posicion_x < len(self.matriz[self.posicion_y]) - 1:
                 derecha = self.matriz[self.posicion_y][self.posicion_x+1]
                 if derecha != 1:
-                    # print(("Se puede mover hacia derecha"))
                     self.crearHijo(self.posicion_y,
                                    self.posicion_x+1, arrayExpansion)
 
             if self.posicion_x > 0:
                 izquierda = self.matriz[self.posicion_y][self.posicion_x-1]
                 if izquierda != 1:
-                    # print(("Se puede mover hacia izquierda"))
                     self.crearHijo(self.posicion_y,
                                    self.posicion_x-1, arrayExpansion)
 
@@ -210,8 +201,8 @@ def ProfundidadECiclos(matriz):
                 matrizString += "\n"
             return matrizString
 
-    raiz = Nodo(0, 0, None, positionGoku[0],
-                positionGoku[1], [], matriz, 0, 0, 0, 0)
+    raiz = Nodo(0, 0, None, positionBombera[0],
+                positionBombera[1], [], matriz, 0, 0, 0, 0)
 
     arrayExpansion.append(raiz)
 
@@ -249,19 +240,19 @@ def ProfundidadECiclos(matriz):
         plt.yticks([])
         fig = plt.gcf()
         fig.canvas.manager.set_window_title(
-            "Camino de Goku para encontrar las esferas del dragón usando Profundidad Evitando Ciclos")
-        textoSemillas = ax.text(0.2, 1.05, "Semillas actuales: " + str(0),
+            "Camino de la Bombera para apagar el fuego usando Profundidad Evitando Ciclos")
+        textoSemillas = ax.text(0.2, 1.05, "Cubeta: " + str(0),
                                 fontsize=12, ha="center", va="center", transform=ax.transAxes)
-        textoEsferas = ax.text(0.8, 1.05, "Esferas actuales: " + str(0),
+        textoEsferas = ax.text(0.8, 1.05, "Fuego: " + str(0),
                                fontsize=12, ha="center", va="center", transform=ax.transAxes)
 
         plt.pause(0.5)
         for i in camino:
             textoSemillas.remove()
             textoEsferas.remove()
-            textoSemillas = ax.text(0.2, 1.05, "Costos: " + str(
-                i.costo), fontsize=12, ha="center", va="center", transform=ax.transAxes)
-            textoEsferas = ax.text(0.8, 1.05, "LLenado: " + str(i.llenadoagua),
+            textoSemillas = ax.text(0.2, 1.05, "Cubeta: " + str(
+                i.cubetas), fontsize=12, ha="center", va="center", transform=ax.transAxes)
+            textoEsferas = ax.text(0.8, 1.05, "Fuego: " + str(i.fuego),
                                    fontsize=12, ha="center", va="center", transform=ax.transAxes)
             textoSemillas
             textoEsferas
