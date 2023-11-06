@@ -248,14 +248,14 @@ def amplitud(matriz):
 
         plt.pause(0.5)
         for i in camino:
-            textoSemillas.remove()
+            textoCubeta.remove()
             textoFuego.remove()
-            textoSemillas = ax.text(0.2, 1.05, "Cubeta: " + str(
+            textoCubeta = ax.text(0.2, 1.05, "Cubeta: " + str(
                 i.cubetas), fontsize=12, ha="center", va="center", transform=ax.transAxes)
             textoFuego = ax.text(0.8, 1.05, "Fuego: " + str(i.fuego),
                                    fontsize=12, ha="center", va="center", transform=ax.transAxes)
             
-            textoSemillas
+            textoCubeta
             textoFuego
             matrizTemp = i.matriz
             im.set_data(matrizTemp)
